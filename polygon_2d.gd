@@ -19,3 +19,9 @@ func _ready() -> void:
 	#hole.reverse() # Makes it a hole
 	pass
 	#polygons = [outer, hole]
+	#polygon.append(Vector2(0,100))
+	#polygon.append(Vector2(0,200))
+	#polygon.append(Vector2(100,100))
+	polygon = hole
+	print("trying this ps")
+	print(polygon)
