@@ -7,7 +7,8 @@ const SEARCH_ZONE = [Vector2i(0, 0), Vector2i(100, 100)]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	create_polygon(Vector2(2,3))
+	#create_polygon(Vector2(2,3))
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

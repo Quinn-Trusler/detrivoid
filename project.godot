@@ -15,6 +15,11 @@ run/main_scene="uid://bka7jtyv5jxw8"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [input]
 
 click={
