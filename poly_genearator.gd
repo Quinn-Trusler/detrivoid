@@ -1,3 +1,7 @@
+
+##################################################################
+
+
 extends Node2D
 ## TilemapPolygonGenerator.gd
 ## Generates outline polygons directly from a TileMapLayer node.

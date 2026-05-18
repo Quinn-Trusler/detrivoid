@@ -1,3 +1,6 @@
+
+### 
+
 ## TilemapPolygonExample.gd
 ## Attach this script to a Node2D that is a CHILD of your TileMapLayer node
 ## (or any node that can parent Polygon2D / StaticBody2D children).
@@ -36,10 +39,10 @@ func rebuild() -> void:
 	# Polygons are in the TileMapLayer's LOCAL space.
 	# Because this node should be a child of the layer (or share the same
 	# transform), no extra coordinate conversion is needed.
-	var polygons: Array = _generator.generate_polygons_from_layer(tile_layer)
+	var polygons_: Array = _generator.generate_polygons_from_layer(tile_layer)
 
 	print(polygons)
-	for loop: PackedVector2Array in polygons:
+	for loop: PackedVector2Array in polygons_:
 		if TilemapPolygonGenerator.is_hole(loop):
 			# Holes: skip for now, or handle with Geometry2D.clip_polygons().
 			continue
@@ -50,7 +53,158 @@ func rebuild() -> void:
 			_add_visual_polygon(loop)
 		loops.append(loop)
 
+var tile_size : Vector2i = Vector2i(16,16)
+# If add is false it will subtract
+func cell_exists(cell: Vector2i) -> bool:
+	return tile_layer.get_cell_source_id(cell) != -1
+	
 
+
+# Don't try removing when there is nothing to remove
+# Don't try adding when there is nothing to add
+# Don't try merging two polygons or creating a loop
+# Will not work if adjacent tiles are in polygon and not map or vice versa. You can add the actual tile before or after this function, if you don't and run it again it will fail.
+func edit_tile(cell : Vector2, add : bool = true) -> void:
+	print("Trying to add: ", cell)
+	# Verticies to add and vertices to delete
+
+	var cx: int = cell.x
+	var cy: int = cell.y
+
+	# map_to_local() returns the CENTER of the cell in local space.
+	var center: Vector2 = get_parent().map_to_local(cell)
+	var hw := tile_size.x * 0.5
+	var hh := tile_size.y * 0.5
+	var tl := center + Vector2(-hw, -hh)   # top-left
+	var tr := center + Vector2( hw, -hh)   # top-right
+	var br := center + Vector2( hw,  hh)   # bottom-right
+	var bl := center + Vector2(-hw,  hh)   # bottom-left
+
+	var add_edges = []
+	var remove_edges = []
+	
+	# Top edge → left to right
+	if cell_exists(Vector2i(cx, cy - 1)):
+		remove_edges.append([tl, tr])
+	else: 
+		add_edges.append([tl, tr])
+
+	# Bottom edge → right to left
+	if cell_exists(Vector2i(cx, cy + 1)):
+		remove_edges.append([br, bl])
+	else:
+		add_edges.append([br,bl])
+
+	# Left edge → bottom to top
+	if cell_exists(Vector2i(cx - 1, cy)):
+		remove_edges.append([bl, tl])
+	else:
+		add_edges.append([bl,tl])
+
+	# Right edge → top to bottom
+	if cell_exists(Vector2i(cx + 1, cy)):
+		remove_edges.append([tr, br])
+	else:
+		add_edges.append([tr, br])
+
+	if not add:
+		print("attempting swamp")
+		print(remove_edges)
+		print(add_edges)
+		var temp = add_edges
+		add_edges = remove_edges
+		remove_edges = temp
+		print(remove_edges)
+		print(add_edges)
+		
+	if len(add_edges) == 4: # Create a new polygon
+		print("brand new polygon functionality")
+	
+		
+	# Either last tile and remove polygon or no tile at all
+	elif len(remove_edges) == 4:
+		# Either last tile and remove polygon or no tile at all
+		loops.remove_at(0)
+		polygons[0].queue_free()
+		return
+	# Assume tile is no merging or unmerging two polygons 
+	else:
+		print(remove_edges)
+		# remove points that are doubled up
+		for i in range(len(remove_edges)):
+			for j in range(len(remove_edges)):
+				print("removed doubled points")
+				if remove_edges[i][0] == remove_edges[j][1]: # If point shared between 2 edges
+					print("actual removal", len(loops[0]))
+					loops[0].erase(remove_edges[i][0])
+					print(len(loops[0]))
+					
+		# No need to add any points to polygon
+		if len(add_edges) == 1:
+			print("One Add Edge")
+		
+		else: # Two to Three add_edges			
+			var starting_index = -1
+			var ending_index = -1
+			var adj_list = {}
+			var rev_adj_list = {}
+			for i in range(len(add_edges)):
+				adj_list[add_edges[i][0]] = add_edges[i][1]
+				rev_adj_list[add_edges[i][1]] = add_edges[i][0]
+			
+			var start_point
+			var end_point
+			# Up to 3 add edges, assume they are in proper order
+			for i in range(len(add_edges)):
+				#Start point is the starting point that is not in second position of any
+				var found_start = true
+				var found_end = true
+				
+				# Is a start or end point if it is unique
+				for j in range(len(add_edges)):
+					if add_edges[i][0] == add_edges[j][1]:
+						found_start = false
+					if add_edges[i][1] == add_edges[j][0]:
+						found_end = false
+				
+				# Find the index of the start/end point in the array
+				if found_start:
+					start_point = add_edges[i][0]
+					starting_index = loops[0].find(start_point)
+				if found_end:
+					end_point = add_edges[i][1]
+					ending_index = loops[0].find(end_point)
+			
+			print(adj_list)
+			# Add one or two points between start and end
+			if starting_index < ending_index:
+				print("insert points")
+				var new_point = adj_list[start_point]
+				loops[0].insert(starting_index + 1, new_point)
+				if len(add_edges) > 2:
+					new_point = adj_list[new_point]
+					loops[0].insert(starting_index + 2, new_point)
+			else:
+				print("insert points reversy")
+				var new_point = rev_adj_list[end_point]
+				loops[0].insert(ending_index + 1, new_point)
+				if len(add_edges) > 2:
+					new_point = rev_adj_list[new_point]
+					loops[0].insert(ending_index + 2, new_point)
+	
+	#print("------")
+	#print(loops[0])	
+	polygons[0].polygon = loops[0]
+	var children = polygons[0].get_children()
+	children[0].points = loops[0]#free()
+	#create_outline(polygons[0])
+	
+	print("finished addition")
+	# 1. Identify polygon it's touching
+	# 2. If it is not touching a po
+	# 2. Add points to said loop
+	# 3. Add points to said polygon
+	# Add polygon seperation and merging??? - NO!!!
 
 func jagged_polygon(points: PackedVector2Array, roughness: float = 8.0, jaggy_distance: float = 20.0, period : float = 16, shift : float = PI/4, add_i : bool = false) -> PackedVector2Array:
 	var new_points = PackedVector2Array()
@@ -129,9 +283,9 @@ func _add_visual_polygon(loop: PackedVector2Array) -> void:
 	poly.texture = texture
 	poly.set_texture_repeat(CanvasItem.TEXTURE_REPEAT_ENABLED)
 	#poly.polygon   = jagged_polygon(loop, 3, 3)
-	loop = remove_excess_points(loop)
-	loop = move_corners_inwards(loop,2)
-	loop = jagged_polygon(loop,1,4,16,PI/4,false)
+	#loop = remove_excess_points(loop)
+	#loop = move_corners_inwards(loop,2)
+	#loop = jagged_polygon(loop,1,4,16,PI/4,false)
 	poly.polygon = loop 
 	create_outline(poly)
 	poly.color     = outline_color
