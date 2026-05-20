@@ -25,10 +25,11 @@ var loops : Array = [] # An array that holds lists
 var polygons : Array = [] # An array of Polygon2Ds
 
 func _ready() -> void:
-	if tile_layer == null:
-		push_error("TilemapPolygonExample: assign a TileMapLayer in the Inspector.")
-		return
-	rebuild()
+	#if tile_layer == null:
+		#push_error("TilemapPolygonExample: assign a TileMapLayer in the Inspector.")
+		#return
+	#rebuild()
+	pass
 
 
 ## Call this whenever tiles are added or removed at runtime.
@@ -285,7 +286,7 @@ func _add_visual_polygon(loop: PackedVector2Array) -> void:
 	#poly.polygon   = jagged_polygon(loop, 3, 3)
 	#loop = remove_excess_points(loop)
 	#loop = move_corners_inwards(loop,2)
-	#loop = jagged_polygon(loop,1,4,16,PI/4,false)
+	loop = jagged_polygon(loop,2,4,16,PI/4,false)
 	poly.polygon = loop 
 	create_outline(poly)
 	poly.color     = outline_color

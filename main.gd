@@ -43,4 +43,4 @@ func add_tile(pos, add = true):
 		$TileMap.set_cell(pos,0,TILE)
 	else: # Remove
 		$TileMap.set_cell(pos)
-	$TileMap/PolyExample.edit_tile(pos, add)
+	#$TileMap/PolyExample.edit_tile(pos, add)

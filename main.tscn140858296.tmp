@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://dqwn27j24kki7" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://6jq23atqfahl" path="res://object.tscn" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://egm31owqsr8a" path="res://art/tile_map.png" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://b4a1ufwa3p8te" path="res://polygon_2d.gd" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://fi1nmq3424it" path="res://art/dirt.png" id="5_kek77"]
+[ext_resource type="Shader" uid="uid://c0pjttt21smbx" path="res://jagged.gdshader" id="6_4c57u"]
 [ext_resource type="Script" uid="uid://dy6lre5mh1pfx" path="res://poly_genearator.gd" id="6_272bh"]
 [ext_resource type="Script" uid="uid://cfjyroxhxnck5" path="res://poly_example.gd" id="7_272bh"]
 [ext_resource type="Script" uid="uid://buv1t0er468c8" path="res://polygon_manager.gd" id="9_kek77"]
@@ -17,30 +19,27 @@ texture = ExtResource("3_h2yge")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:0/0/custom_data_0 = 2
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, 8, -8, 8)
 0:1/0 = 0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:1/0/custom_data_0 = 2
 1:1/0 = 0
 1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:1/0 = 0
 2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-2:1/0/custom_data_0 = 1
 0:2/0 = 0
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8)
 1:2/0 = 0
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:2/0/custom_data_0 = 2
 2:2/0 = 0
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_lquwl"]
 physics_layer_0/collision_layer = 1
-custom_data_layer_0/name = "ID"
-custom_data_layer_0/type = 2
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efxa6"]
+shader = ExtResource("6_4c57u")
 
 [node name="Main" type="Node2D" unique_id=983677411]
 script = ExtResource("1_ig7tw")
@@ -70,17 +69,21 @@ build_collision = false
 outline_color = Color(1, 1, 1, 1)
 texture = ExtResource("5_kek77")
 
-[node name="PolyGenearator" type="Node2D" parent="." unique_id=1461947697]
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1905040332]
 visible = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_efxa6")
+color = Color(1, 0, 1, 1)
+texture = ExtResource("5_kek77")
+polygon = PackedVector2Array(-145.2, 58.4, 465.99994, 30.400002, 618.7999, -18.799995, -33, -45, -130.8, -6.4000015, -137.2, -41.199997, -168, -29.199997, -165.59999, 16.400002, -194, 53.6, -174.4, 69.200005)
+uv = PackedVector2Array(-145.2, 58.4, 465.99994, 30.400002, 618.7999, -18.799995, -33, -45, -130.8, -6.4000015, -137.2, -41.199997, -168, -29.199997, -165.59999, 16.400002, -194, 53.6, -174.4, 69.200005)
+polygons = [PackedInt32Array(1, 2, 8, 9)]
+script = ExtResource("4_1bvp3")
+
+[node name="PolyGenearator" type="Node2D" parent="." unique_id=1461947697]
 position = Vector2(0, 6)
 script = ExtResource("6_272bh")
 
 [node name="PolygonManager" type="Node2D" parent="." unique_id=261973122 node_paths=PackedStringArray("TileLayer")]
 script = ExtResource("9_kek77")
 TileLayer = NodePath("../TileMap")
-
-[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1287906296]
-visible = false
-texture_repeat = 2
-texture = ExtResource("5_kek77")
-polygon = PackedVector2Array(110, 59, 300, 68, 227, 249)
