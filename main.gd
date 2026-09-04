@@ -1,19 +1,15 @@
 extends Node2D
 
-var doodad_scene = load("res://object.tscn") 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var doodad_scene = load("res://doodad.tscn") 
+@export var DOODADMANAGER : Node2D
 
 const TILE = Vector2(2,1)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("click"):
-		var temp = doodad_scene.instantiate()
-		add_child(temp)
-		temp.position = get_local_mouse_position()
+		DOODADMANAGER.create_doodad("none", get_local_mouse_position())
+		
 		add_tile(Vector2(16,9))
 		add_tile(Vector2(7,13))
 		add_tile(Vector2(6,13))
@@ -40,7 +36,7 @@ func _process(delta: float) -> void:
 
 func add_tile(pos, add = true):
 	if add:
-		$TileMap.set_cell(pos,0,TILE)
+		$TileMapLayer.set_cell(pos,0,TILE)
 	else: # Remove
-		$TileMap.set_cell(pos)
+		$TileMapLayer.set_cell(pos)
 	#$TileMap/PolyExample.edit_tile(pos, add)
