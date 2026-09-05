@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm2s84pwp3o3g"
-path="res://.godot/imported/smile.png-c1085eee399290656fa88ac64163689d.ctex"
+uid="uid://pir4thd8wiak"
+path="res://.godot/imported/shell.png-d50b40da85dc8fad19abe620c24cf379.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/smile.png"
-dest_files=["res://.godot/imported/smile.png-c1085eee399290656fa88ac64163689d.ctex"]
+source_file="res://art/doodads/shell.png"
+dest_files=["res://.godot/imported/shell.png-d50b40da85dc8fad19abe620c24cf379.ctex"]
 
 [params]
 
