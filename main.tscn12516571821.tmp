@@ -78,5 +78,6 @@ LineHolder = NodePath("../LineHolder")
 PolygonHolder = NodePath("../PolygonHolder")
 
 [node name="PolygonHolder" type="Node2D" parent="PolygonManager" unique_id=2092332830]
+visible = false
 
 [node name="LineHolder" type="Node2D" parent="PolygonManager" unique_id=224168626]

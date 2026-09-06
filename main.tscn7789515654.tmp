@@ -72,11 +72,5 @@ tile_set = SubResource("TileSet_lquwl")
 script = ExtResource("9_kek77")
 TileLayer = NodePath("../TileMapLayer")
 
-[node name="PolygonMaker" type="Node2D" parent="PolygonManager" unique_id=895020728 node_paths=PackedStringArray("LineHolder", "PolygonHolder")]
+[node name="PolygonMaker" type="Node2D" parent="PolygonManager" unique_id=895020728]
 script = ExtResource("6_7mycd")
-LineHolder = NodePath("../LineHolder")
-PolygonHolder = NodePath("../PolygonHolder")
-
-[node name="PolygonHolder" type="Node2D" parent="PolygonManager" unique_id=2092332830]
-
-[node name="LineHolder" type="Node2D" parent="PolygonManager" unique_id=224168626]

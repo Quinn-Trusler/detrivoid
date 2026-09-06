@@ -1,23 +1,32 @@
 extends Node2D
+@export var LineHolder : Node2D
+@export var PolygonHolder : Node2D
 
-# Queue free and remove every element from given list
-# Use for polygons and lines
-func remove_all_from_list(list):
-	for element in list:
-		element.queue_free()
-	list.clear()
+# Updates dictionary of lines given a set of edges
+func edges_to_lines(lines : Dictionary, edges : Dictionary , width : int, colour : Color) -> void:
+	for key in edges:
+		add_line(lines, edges, key, width, colour)
+	
+# Only updates lines adjacent to a position
+func update_tile_lines(lines : Dictionary, edges : Dictionary, pos, width : int, colour : Color) -> void:
+	var keys = [[pos + UP, pos], [pos , pos + DOWN], [pos, pos + RIGHT], [pos + LEFT, pos]]
+	print("\n\n -----Updating tile lines----")
+	for key in keys:
+		if key in edges:
+			print("Adding line at key: ", key, edges[key])
+			if key in lines: # Remove old line
+				lines[key].queue_free()
+			add_line(lines, edges, key, width, colour)
+		
+			
 
-# Returns a list of lines given a set of edges
-func add_lines(edges : Array, width : int, colour : Color) -> Array[Line2D]:
-	var lines : Array[Line2D]= []
-	for edge in edges:
-		var line = Line2D.new()
-		line.width = width
-		line.default_color = colour
-		line.points = edge
-		lines.append(line)
-		add_child(line)
-	return lines
+func add_line(lines : Dictionary, edges : Dictionary, key, width : int, colour : Color) -> void:
+	var line = Line2D.new()
+	line.width = width
+	line.default_color = colour
+	line.points = edges[key]
+	lines[key] = line
+	LineHolder.add_child(line)
 
 # Get ID of a tile
 func get_ID(pos, tile_layer) -> int:
@@ -40,32 +49,67 @@ const TOP_RIGHT_CORNER_OFFSET = Vector2(HALF_WIDTH, -HALF_HEIGHT)
 const BOTTOM_RIGHT_CORNER_OFFSET = Vector2(HALF_WIDTH,  HALF_HEIGHT)
 const BOTTOM_LEFT_CORNER_OFFSET = Vector2(-HALF_WIDTH,  HALF_HEIGHT)
 
-# Will update itself and tiles around it
-func update_tile(pos : Vector2i, tile_layer : TileMapLayer, polygons : Dictionary, lines):
-	pass
+func update_tiles_and_adjacent(pos : Vector2i, tile_layer : TileMapLayer, polygons : Dictionary, edges : Dictionary, lines : Dictionary, width : int, colour : Color, tile_id):
+	var tile_positions = [pos, pos + LEFT, pos + RIGHT, pos + DOWN, pos + UP]
+	for tile_position in tile_positions:
+		update_tile(tile_position, tile_layer, polygons, edges, lines, width, colour, tile_id)
 	
-# Option 1: each tile points to it's edges
-# Option 2: we can define edges as what two tiles it's between []
+# Will update polygons, lines and edges given at singular tile position
+# This updates this tile and this tile only. Changing a tile likely affects adjacent so use update_tiles_and_adjacent
+func update_tile(pos : Vector2i, tile_layer : TileMapLayer, polygons : Dictionary, edges : Dictionary, lines : Dictionary, width : int, colour : Color, tile_id):
+	removed_adjacent_edges_and_lines(pos, edges, lines, tile_layer, tile_id)
+	if pos in polygons:
+		polygons[pos].queue_free()
+		polygons.erase(pos)
+	var poly = get_tile_polygon(edges ,pos, tile_layer)
+	if poly != null:
+		#if pos in polygons: # Not already null
+			#
+	#else:
+		polygons[pos] = poly
+		PolygonHolder.add_child(poly)
+	# Remove all sandwhiched edges
+		
+	update_tile_lines(lines, edges, pos, width, colour)
+	
+	
+	
+func removed_adjacent_edges_and_lines(pos, edges, lines, tile_layer, tile_id):
+	
+	var keys = [[pos + UP, pos], [pos , pos + DOWN], [pos, pos + RIGHT], [pos + LEFT, pos]]
+	var check_locations = [pos + UP, pos + DOWN, pos + RIGHT, pos + LEFT]
+	var adding = false
+	if get_ID(pos, tile_layer) != -1:
+		adding = true
+	for i in range(len(keys)):
+		var key = keys[i]
+		edges.erase(key)
 
-# Given a range of tiles it will return a list of edges and polygons
+		if key in lines:
+			if adding:
+				lines[key].queue_free()
+				lines.erase(key)
+			elif get_ID(check_locations[i], tile_layer) != tile_id: # Don't erase lines on other tiles
+				lines[key].queue_free()
+				lines.erase(key)
+			
+				
+
+# Given a range of tiles it will update a list of edges and polygons
 # Edges are used for lines and polygons for the fill
-func tilerange_to_polygons(tile_range, tile_layer : TileMapLayer) -> Array:
-	var polygons = {} # Each tile gets it's own wavy polygon
-	var edges = [] # Edges are used to form polygons
+func tilerange_to_polygons(polygons, edges, tile_range, tile_layer : TileMapLayer) -> Array:
 	for y in range(tile_range[0].y,tile_range[1].y):
 		for x in range(tile_range[0].x,tile_range[1].x):
 			var pos = Vector2i(x, y)
-			var poly_return = get_tile_polygon(pos, tile_layer)
-			var poly = poly_return[0]
-			polygons[pos] = poly
-			edges.append_array(poly_return[1])
-			add_child(poly)
+			var poly = get_tile_polygon(edges ,pos, tile_layer)
+			if poly != null:
+				polygons[pos] = poly
+				PolygonHolder.add_child(poly)
 	return [polygons, edges]
 
 
-# Uses position to create tile polygon. 
-func get_tile_polygon(pos, tile_layer):
-	var edges = []
+# Uses position to create tile polygon. Updates edges
+func get_tile_polygon(edges, pos, tile_layer):
 	var tile_id = get_ID(pos, tile_layer)
 	if tile_id != -1:
 		var left_edge = null
@@ -106,39 +150,43 @@ func get_tile_polygon(pos, tile_layer):
 		poly.texture = TEXTURES[tile_id]
 		poly.set_texture_repeat(CanvasItem.TEXTURE_REPEAT_ENABLED)
 		poly.polygon = loop
-		return [poly,edges]
-	return [null, edges]
+		return poly
+	return null
 	
 # get_tile_polygon helper
-func stitch_edges_together(loop, edges, tile_layer, pos, tile_id, left_edge, up_edge, right_edge, down_edge):
+func stitch_edges_together(loop : Array, edges : Dictionary, tile_layer : TileMapLayer, pos, tile_id, left_edge, up_edge, right_edge, down_edge):
 	# Add the clockwise most point when we don't see another tile
 	if left_edge:
 		if len(left_edge) > 1:
+			var edges_key = [pos + LEFT, pos]
 			if get_ID(pos + UP, tile_layer) != tile_id:
-				edges.append(left_edge + [up_edge[0]])
+				edges[edges_key] = left_edge + [up_edge[0]]
 			else: 
-				edges.append(left_edge)
+				edges[edges_key] = left_edge
 		loop.append_array(left_edge)
 	if up_edge:
+		var edges_key = [pos + UP, pos]
 		if len(up_edge)>1:
 			if get_ID(pos + RIGHT, tile_layer) != tile_id:
-				edges.append(up_edge + [right_edge[0]])
+				edges[edges_key] = up_edge + [right_edge[0]]
 			else:
-				edges.append(up_edge)
+				edges[edges_key] = up_edge
 		loop.append_array(up_edge)
 	if right_edge:
+		var edges_key = [pos, pos + RIGHT]
 		if len(right_edge)>1:
 			if get_ID(pos + DOWN, tile_layer) != tile_id:
-				edges.append(right_edge + [down_edge[0]])
+				edges[edges_key] = right_edge + [down_edge[0]]
 			else:
-				edges.append(right_edge)
+				edges[edges_key] = right_edge
 		loop.append_array(right_edge)
 	if down_edge:
+		var edges_key = [pos, pos + DOWN]
 		if len(down_edge)>1:
 			if get_ID(pos + LEFT, tile_layer) != tile_id:
-				edges.append(down_edge + [left_edge[0]])
+				edges[edges_key] = down_edge + [left_edge[0]]
 			else:
-				edges.append(down_edge)
+				edges[edges_key] = down_edge
 		loop.append_array(down_edge)
 
 
