@@ -6,7 +6,7 @@ extends Node2D
 @onready var PolygonMaker = $PolygonMaker
 
 const LINE_COLOUR  := Color.BLACK
-const LINE_THICKNESS := 2
+const LINE_THICKNESS := 8
 const TILE_RANGE := [Vector2i(0, 0), Vector2i(100,100)]
 
 var polygons : Dictionary = {}

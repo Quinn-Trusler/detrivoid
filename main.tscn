@@ -38,7 +38,7 @@ texture = ExtResource("3_h2yge")
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_lquwl"]
-tile_size = Vector2i(32, 32)
+tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 custom_data_layer_0/name = "ID"
 custom_data_layer_0/type = 2
@@ -80,6 +80,8 @@ tile_set = SubResource("TileSet_lquwl")
 script = ExtResource("9_kek77")
 TileLayer = NodePath("../TileMapLayer")
 
+[node name="LineHolder" type="Node2D" parent="PolygonManager" unique_id=224168626]
+
 [node name="PolygonMaker" type="Node2D" parent="PolygonManager" unique_id=895020728 node_paths=PackedStringArray("LineHolder", "PolygonHolder")]
 script = ExtResource("6_7mycd")
 LineHolder = NodePath("../LineHolder")
@@ -87,13 +89,12 @@ PolygonHolder = NodePath("../PolygonHolder")
 
 [node name="PolygonHolder" type="Node2D" parent="PolygonManager" unique_id=2092332830]
 
-[node name="LineHolder" type="Node2D" parent="PolygonManager" unique_id=224168626]
-
 [node name="Mushroom" type="Path2D" parent="." unique_id=1949921319]
 curve = SubResource("Curve2D_7mycd")
 script = ExtResource("7_272bh")
 
 [node name="Stem" type="Line2D" parent="Mushroom" unique_id=1087273336]
+antialiased = true
 
 [node name="Cap" type="Sprite2D" parent="Mushroom" unique_id=797582681]
 texture = ExtResource("8_5vw27")

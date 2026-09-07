@@ -8,11 +8,11 @@ var total_time
 var total_length
 var finished = false
 
-const SCALE_VEC = Vector2(0.5,0.5)
-var width_total = 10
+const SCALE_VEC = Vector2(1,1)
+var width_total = 30
 # Starting value gets added to the total values
-var starting_width = 4
-var starting_scale = 0.4
+var starting_width = 20
+var starting_scale = 1
 
 
 # Called when the node enters the scene tree for the first time.

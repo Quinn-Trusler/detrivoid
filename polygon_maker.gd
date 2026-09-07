@@ -40,8 +40,8 @@ const RIGHT = Vector2i(1,0)
 const DOWN = Vector2i(0,1)
 const UP = Vector2i(0,-1)
 
-var TEXTURES = {1 : load("res://art/dirt.png")}
-const TILE_SIZE = Vector2i(32,32)
+var TEXTURES = {1 : load("res://art/test_dirt.png")}
+const TILE_SIZE = Vector2i(64,64)
 const HALF_WIDTH := TILE_SIZE.x * 0.5
 const HALF_HEIGHT := TILE_SIZE.y * 0.5
 const TOP_LEFT_CORNET_OFFSET = Vector2(-HALF_WIDTH, -HALF_HEIGHT)
@@ -191,7 +191,8 @@ func stitch_edges_together(loop : Array, edges : Dictionary, tile_layer : TileMa
 
 
 var sample_interval = 1
-var wave_height = 2
+var wave_height = 10
+var frequency_multiplier = 0.1
 
 func get_worldly_distance(position : Vector2):
 	return position.x + position.y
@@ -231,4 +232,4 @@ func generate_points(start_pos : Vector2, end_pos : Vector2) -> Array:
 
 # If this returns a negative value then two divits in the polygon could cross and then polygon will not display :(
 func get_wave(distance):
-	return  1 + 0.5 * sin(distance * PI/6) + 0.5 * sin(distance * PI/9) +  0.3 * sin(distance * PI/2) 
+	return  1 + 0.5 * sin(frequency_multiplier * distance * PI/6) + 0.5 * sin(frequency_multiplier * distance * PI/9) +  0.3 * sin(frequency_multiplier * distance * PI/2) 
