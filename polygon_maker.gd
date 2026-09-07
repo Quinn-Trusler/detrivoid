@@ -41,7 +41,7 @@ const DOWN = Vector2i(0,1)
 const UP = Vector2i(0,-1)
 
 var TEXTURES = {1 : load("res://art/dirt.png")}
-const TILE_SIZE = Vector2i(16,16)
+const TILE_SIZE = Vector2i(32,32)
 const HALF_WIDTH := TILE_SIZE.x * 0.5
 const HALF_HEIGHT := TILE_SIZE.y * 0.5
 const TOP_LEFT_CORNET_OFFSET = Vector2(-HALF_WIDTH, -HALF_HEIGHT)

@@ -89,11 +89,16 @@ PolygonHolder = NodePath("../PolygonHolder")
 
 [node name="LineHolder" type="Node2D" parent="PolygonManager" unique_id=224168626]
 
-[node name="Mushroom" type="Path2D" parent="." unique_id=1949921319]
+[node name="Path2D" type="Path2D" parent="." unique_id=1949921319]
 curve = SubResource("Curve2D_7mycd")
 script = ExtResource("7_272bh")
 
-[node name="Stem" type="Line2D" parent="Mushroom" unique_id=1087273336]
+[node name="Line2D" type="Line2D" parent="Path2D" unique_id=1087273336]
 
-[node name="Cap" type="Sprite2D" parent="Mushroom" unique_id=797582681]
+[node name="head" type="Polygon2D" parent="Path2D" unique_id=1103060761]
+visible = false
+color = Color(0, 1, 1, 1)
+polygon = PackedVector2Array(-4, 7, 6, 7, 6, -5, -7, -5)
+
+[node name="cap" type="Sprite2D" parent="Path2D" unique_id=797582681]
 texture = ExtResource("8_5vw27")
