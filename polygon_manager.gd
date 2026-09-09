@@ -7,7 +7,7 @@ extends Node2D
 
 const LINE_COLOUR  := Color.BLACK
 const LINE_THICKNESS := 8
-const TILE_RANGE := [Vector2i(0, 0), Vector2i(100,100)]
+@export var TILE_RANGE := [Vector2i(0, 0), Vector2i(100,100)]
 
 var polygons : Dictionary = {}
 var edges : Dictionary = {}

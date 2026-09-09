@@ -49,6 +49,10 @@ const TOP_RIGHT_CORNER_OFFSET = Vector2(HALF_WIDTH, -HALF_HEIGHT)
 const BOTTOM_RIGHT_CORNER_OFFSET = Vector2(HALF_WIDTH,  HALF_HEIGHT)
 const BOTTOM_LEFT_CORNER_OFFSET = Vector2(-HALF_WIDTH,  HALF_HEIGHT)
 
+@export var sample_interval = 1
+@export var wave_height = 10
+@export var frequency_multiplier = 0.1
+
 func update_tiles_and_adjacent(pos : Vector2i, tile_layer : TileMapLayer, polygons : Dictionary, edges : Dictionary, lines : Dictionary, width : int, colour : Color, tile_id):
 	var tile_positions = [pos, pos + LEFT, pos + RIGHT, pos + DOWN, pos + UP]
 	for tile_position in tile_positions:
@@ -65,6 +69,7 @@ func update_tile(pos : Vector2i, tile_layer : TileMapLayer, polygons : Dictionar
 	if poly != null:
 		polygons[pos] = poly
 		PolygonHolder.add_child(poly)
+		print("Adding polygon: \n", edges)
 	# Remove all sandwhiched edges
 		
 	update_tile_lines(lines, edges, pos, width, colour)
@@ -187,9 +192,7 @@ func stitch_edges_together(loop : Array, edges : Dictionary, tile_layer : TileMa
 		loop.append_array(down_edge)
 
 
-var sample_interval = 1
-var wave_height = 10
-var frequency_multiplier = 0.1
+
 
 func get_worldly_distance(position : Vector2):
 	return position.x + position.y
@@ -229,4 +232,4 @@ func generate_points(start_pos : Vector2, end_pos : Vector2) -> Array:
 
 # If this returns a negative value then two divits in the polygon could cross and then polygon will not display :(
 func get_wave(distance):
-	return  1 + 0.5 * sin(frequency_multiplier * distance * PI/6) + 0.5 * sin(frequency_multiplier * distance * PI/9) +  0.3 * sin(frequency_multiplier * distance * PI/2) 
+	return  1.3 + 0.5 * sin(frequency_multiplier * distance * PI/6) + 0.5 * sin(frequency_multiplier * distance * PI/9) +  0.3 * sin(frequency_multiplier * distance * PI/2) 

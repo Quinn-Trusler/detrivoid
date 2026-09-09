@@ -2,17 +2,25 @@
 
 [ext_resource type="Texture2D" uid="uid://pir4thd8wiak" path="res://art/doodads/shell.png" id="1_d8j85"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d8j85"]
+friction = 0.2
+bounce = 0.3
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_si4qw"]
-radius = 14.0
-height = 44.0
+radius = 40.808094
+height = 126.85353
 
 [node name="Object" type="RigidBody2D" unique_id=1754759553]
+collision_layer = 3
+collision_mask = 2
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_d8j85")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=498866623]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_d8j85")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=445425832]
-position = Vector2(1, 10)
-rotation = 0.08726646
+position = Vector2(-2.0000005, 31.000004)
+rotation = 1.4137167
 shape = SubResource("CapsuleShape2D_si4qw")
