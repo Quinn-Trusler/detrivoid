@@ -3,7 +3,7 @@ extends Node2D
 var doodad_scene = load("res://doodad.tscn") 
 @export var DOODADMANAGER : Node2D
 
-const TILE = Vector2(2,1)
+const TILE = Vector2(0,0)
 
 var testing_tiles = [Vector2(7,13), Vector2(6,13), Vector2(7,13), Vector2(4,13), Vector2(4,14), Vector2(5,14), Vector2(5,13)]
 var ind = 0 
@@ -30,5 +30,5 @@ func add_tile(pos, add = true):
 		$TileMapLayer.set_cell(pos,0,TILE)
 	else: # Remove
 		$TileMapLayer.set_cell(pos)
-	$PolygonManager.update_tile(pos, 1)
+	$PolygonManager.update_tile(pos, 0)
 	#$TileMap/PolyExample.edit_tile(pos, add)

@@ -40,7 +40,7 @@ const RIGHT = Vector2i(1,0)
 const DOWN = Vector2i(0,1)
 const UP = Vector2i(0,-1)
 
-var TEXTURES = {1 : load("res://art/test_dirt.png")}
+var TEXTURES = {0 : load("res://art/test_dirt.png")}
 const TILE_SIZE = Vector2i(64,64)
 const HALF_WIDTH := TILE_SIZE.x * 0.5
 const HALF_HEIGHT := TILE_SIZE.y * 0.5
@@ -63,9 +63,6 @@ func update_tile(pos : Vector2i, tile_layer : TileMapLayer, polygons : Dictionar
 		polygons.erase(pos)
 	var poly = get_tile_polygon(edges ,pos, tile_layer)
 	if poly != null:
-		#if pos in polygons: # Not already null
-			#
-	#else:
 		polygons[pos] = poly
 		PolygonHolder.add_child(poly)
 	# Remove all sandwhiched edges
