@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DoodadResource" format=3 uid="uid://dj5gkkrei8yoe"]
+
+[ext_resource type="Script" uid="uid://5j2uayd8h0sj" path="res://doodad/doodad_class.gd" id="1_v6ylx"]
+
+[resource]
+script = ExtResource("1_v6ylx")
+ID = "Shell"

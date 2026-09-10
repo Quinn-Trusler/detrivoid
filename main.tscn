@@ -55,6 +55,7 @@ wave_height = 7
 [node name="PolygonHolder" type="Node2D" parent="PolygonManager" unique_id=2092332830]
 
 [node name="Mushroom" type="Path2D" parent="." unique_id=1949921319]
+visible = false
 curve = SubResource("Curve2D_7mycd")
 script = ExtResource("7_272bh")
 

@@ -2,10 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://pir4thd8wiak" path="res://art/doodads/shell.png" id="1_d8j85"]
 [ext_resource type="Script" uid="uid://bc0gxo182dkc0" path="res://doodad.gd" id="1_nyp6n"]
-[ext_resource type="Resource" uid="uid://d07mb4memtmro" path="res://doodad/dead_body.tres" id="2_tgx45"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d8j85"]
-bounce = 0.3
+bounce = 2.85
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_si4qw"]
 radius = 40.808094
@@ -17,9 +16,9 @@ collision_mask = 2
 mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_d8j85")
 script = ExtResource("1_nyp6n")
-data = ExtResource("2_tgx45")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=498866623]
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_d8j85")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=445425832]

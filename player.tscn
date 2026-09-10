@@ -1,19 +1,32 @@
 [gd_scene format=3 uid="uid://6rpsoa6xjgmh"]
 
 [ext_resource type="Script" uid="uid://wnxkgg3fj8nv" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://clgey8pby8q1r" path="res://art/player.png" id="2_onrkg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jcy32"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_onrkg")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4c57u"]
-radius = 33.0
-height = 94.0
+radius = 20.0
+height = 118.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w01tv"]
-radius = 42.0
+radius = 20.0
 height = 118.0
 
 [node name="Player" type="CharacterBody2D" unique_id=2003071887]
 script = ExtResource("1_4flbx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=195792108]
+sprite_frames = SubResource("SpriteFrames_jcy32")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1678748408]
 

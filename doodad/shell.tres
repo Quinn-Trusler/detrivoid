@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="DoodadResource" format=3 uid="uid://dj5gkkrei8yoe"]
+
+[ext_resource type="Texture2D" uid="uid://pir4thd8wiak" path="res://art/doodads/shell.png" id="1_jcy32"]
+[ext_resource type="Script" uid="uid://5j2uayd8h0sj" path="res://doodad/doodad_resource.gd" id="2_inikl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tgx45"]
+radius = 41.0
+height = 129.0
+
+[resource]
+script = ExtResource("2_inikl")
+ID = "shell"
+display_name = "Shell"
+texture = ExtResource("1_jcy32")
+inventory_icon = ExtResource("1_jcy32")
+colision_shape = SubResource("CapsuleShape2D_tgx45")
+colision_shape_offset = Vector2(-2, 31)
+colision_shape_rotation = 81.0
+bounce = 0.2
