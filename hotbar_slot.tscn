@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dr27p138ddg2e"]
+
+[ext_resource type="Script" uid="uid://cq785unw12ibw" path="res://hotbar_slot.gd" id="1_1a228"]
+[ext_resource type="Texture2D" uid="uid://iblftnu0jeiw" path="res://art/ui/slot_outline.png" id="2_lxhn3"]
+[ext_resource type="Texture2D" uid="uid://dbks3826xcv87" path="res://art/ui/inventory_slot.png" id="3_hrm5t"]
+
+[node name="HotbarSlot" type="Button" unique_id=750481174]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_1a228")
+
+[node name="Number" type="Label" parent="." unique_id=1189817476]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 23.0
+offset_right = 94.0
+offset_bottom = 46.0
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1981831030]
+position = Vector2(50, 50)
+texture = ExtResource("3_hrm5t")
+
+[node name="Outline" type="Sprite2D" parent="." unique_id=366672620]
+z_index = 2
+position = Vector2(50, 50)
+texture = ExtResource("2_lxhn3")
+
+[node name="ItemIcon" type="Sprite2D" parent="." unique_id=650710948]
+z_index = 1
+position = Vector2(50, 50)

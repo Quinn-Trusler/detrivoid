@@ -10,10 +10,14 @@ var ind = 0
 var testing_removal_tiles = [Vector2(7,13), Vector2(6,13), Vector2(7,13), Vector2(4,13), Vector2(4,14), Vector2(5,14), Vector2(5,13)]
 var ind2 = 0
 
+func _ready() -> void:
+	$Hotbar.add_item_to_slot("dead_body", 0, 1)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("click"):
-		DOODADMANAGER.create_doodad("none", get_local_mouse_position())
+	if Input.is_action_just_pressed("debug"):
+		$Player.die()
+		#DOODADMANAGER.create_doodad("none", get_local_mouse_position())
 		#if ind < len(testing_tiles):
 			#add_tile(testing_tiles[ind])
 			#ind += 1

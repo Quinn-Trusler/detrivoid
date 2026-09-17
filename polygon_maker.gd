@@ -10,10 +10,8 @@ func edges_to_lines(lines : Dictionary, edges : Dictionary , width : int, colour
 # Only updates lines adjacent to a position
 func update_tile_lines(lines : Dictionary, edges : Dictionary, pos, width : int, colour : Color) -> void:
 	var keys = [[pos + UP, pos], [pos , pos + DOWN], [pos, pos + RIGHT], [pos + LEFT, pos]]
-	print("\n\n -----Updating tile lines----")
 	for key in keys:
 		if key in edges:
-			print("Adding line at key: ", key, edges[key])
 			if key in lines: # Remove old line
 				lines[key].queue_free()
 			add_line(lines, edges, key, width, colour)
@@ -69,7 +67,6 @@ func update_tile(pos : Vector2i, tile_layer : TileMapLayer, polygons : Dictionar
 	if poly != null:
 		polygons[pos] = poly
 		PolygonHolder.add_child(poly)
-		print("Adding polygon: \n", edges)
 	# Remove all sandwhiched edges
 		
 	update_tile_lines(lines, edges, pos, width, colour)
@@ -213,11 +210,9 @@ func generate_points(start_pos : Vector2, end_pos : Vector2) -> Array:
 	var current_pos = start_pos
 	
 	var distance = 0#worldly_distance % sample_interval # Big brain
-	#print("worldy_distance: ", worldly_distance)
 	var amplitude
 	while distance*sample_interval < vec_length:
 		var d = get_worldly_distance(current_pos)
-		#print(d)
 		amplitude = get_wave(d)
 		points.append(current_pos + perp_vec * amplitude * wave_height) # Start position + how far walked + push off walking vector
 		distance += sample_interval

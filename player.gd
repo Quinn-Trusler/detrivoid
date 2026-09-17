@@ -4,6 +4,17 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+var starting_health = 100
+var health = 0
+
+@export var SpawnPoint : Node2D
+@export var DoodadManager : Node2D
+@export var Camera : Camera2D
+
+@onready var tween = get_tree().create_tween()
+
+func _ready() -> void:
+	tween.pause()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -29,3 +40,30 @@ func _physics_process(delta: float) -> void:
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
 			c.get_collider().apply_central_impulse(-c.get_normal() * 100)
+
+func _process(delta: float) -> void:
+	if not tween.is_running():
+		Camera.position = position 
+
+func take_damage(dmg : float):
+	health -= dmg
+	if health <= 0:
+		die()
+func die():
+	DoodadManager.create_doodad("none", position)
+	position = SpawnPoint.position
+	var tween_time = 1
+	tween.tween_property(Camera, "position", SpawnPoint.position, tween_time)
+	tween.play()
+	await get_tree().create_timer(tween_time).timeout
+	
+	
+	
+	
+	
+	
+	
+	# Tween camera to deth location
+	
+	
+	

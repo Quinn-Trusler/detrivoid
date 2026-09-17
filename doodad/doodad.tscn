@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://6jq23atqfahl"]
 
 [ext_resource type="Texture2D" uid="uid://pir4thd8wiak" path="res://art/doodads/shell.png" id="1_d8j85"]
-[ext_resource type="Script" uid="uid://bc0gxo182dkc0" path="res://doodad.gd" id="1_nyp6n"]
-[ext_resource type="Resource" uid="uid://d07mb4memtmro" path="res://doodad/dead_body.tres" id="2_tgx45"]
+[ext_resource type="Script" uid="uid://bc0gxo182dkc0" path="res://doodad/doodad.gd" id="1_nyp6n"]
+[ext_resource type="Resource" uid="uid://d07mb4memtmro" path="res://doodad/resources/dead_body.tres" id="2_tgx45"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d8j85"]
 bounce = 0.3
@@ -11,7 +11,7 @@ bounce = 0.3
 radius = 40.808094
 height = 126.85353
 
-[node name="Object" type="RigidBody2D" unique_id=1754759553]
+[node name="Doodad" type="RigidBody2D" unique_id=1754759553]
 collision_layer = 3
 collision_mask = 2
 mass = 10.0
@@ -26,3 +26,8 @@ texture = ExtResource("1_d8j85")
 position = Vector2(-2.0000005, 31.000004)
 rotation = 1.4137167
 shape = SubResource("CapsuleShape2D_si4qw")
+
+[node name="Timer" type="Timer" parent="." unique_id=148482902]
+wait_time = 10.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -26,7 +26,6 @@ func _ready() -> void:
 # Creates the next timeout based on next segment length, adds a dummy point
 func set_new_timeout() -> void:
 	var len_line2d = len($Stem.points)
-	print("Timeout line length: ", len_line2d)
 	if len_line2d < len(points):# set timeout using length between points
 		var p1 = Vector2(points[len_line2d-1])
 		var p2 = Vector2(points[len_line2d])

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bfeivcgaxupof"]
+
+[ext_resource type="PackedScene" uid="uid://dr27p138ddg2e" path="res://hotbar_slot.tscn" id="1_mjyg7"]
+[ext_resource type="Script" uid="uid://dhe0r18joxjwb" path="res://hotbar.gd" id="1_qbt7h"]
+
+[node name="Hotbar" type="CanvasLayer" unique_id=226577101 node_paths=PackedStringArray("hotbar_slots")]
+script = ExtResource("1_qbt7h")
+hotbar_slots = [NodePath("HBoxContainer/HotbarSlot0"), NodePath("HBoxContainer/HotbarSlot1"), NodePath("HBoxContainer/HotbarSlot2")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1139575687]
+custom_maximum_size = Vector2(100000, 10000)
+offset_left = 800.0
+offset_top = 850.0
+offset_right = 1299.0
+offset_bottom = 950.0
+theme_override_constants/separation = 10
+
+[node name="HotbarSlot0" parent="HBoxContainer" unique_id=1858588163 instance=ExtResource("1_mjyg7")]
+layout_mode = 2
+
+[node name="HotbarSlot1" parent="HBoxContainer" unique_id=750481174 instance=ExtResource("1_mjyg7")]
+layout_mode = 2
+
+[node name="HotbarSlot2" parent="HBoxContainer" unique_id=1055872815 instance=ExtResource("1_mjyg7")]
+layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/HotbarSlot0" to="." method="_on_hotbar_slot_0_pressed"]
+[connection signal="pressed" from="HBoxContainer/HotbarSlot1" to="." method="_on_hotbar_slot_1_pressed"]
+[connection signal="pressed" from="HBoxContainer/HotbarSlot2" to="." method="_on_hotbar_slot_2_pressed"]

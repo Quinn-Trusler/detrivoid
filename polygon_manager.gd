@@ -18,7 +18,6 @@ func _ready() -> void:
 
 	PolygonMaker.tilerange_to_polygons(polygons, edges, TILE_RANGE, TileLayer)
 	PolygonMaker.edges_to_lines(lines, edges, LINE_THICKNESS, LINE_COLOUR)
-	print(polygons)
 
 func update_tile(pos, tile_id) -> void:
 	PolygonMaker.update_tiles_and_adjacent(pos, TileLayer, polygons, edges, lines, LINE_THICKNESS, LINE_COLOUR, tile_id)

@@ -11,6 +11,8 @@ func _ready() -> void:
 	$CollisionShape2D.position = data.colision_shape_offset
 	$CollisionShape2D.rotation = data.colision_shape_rotation
 	$CollisionShape2D.shape = data.colision_shape
+	
+	$Timer.start()
 
 	#print("Doodad created with value: ", doodad_data.health)
 
@@ -20,3 +22,15 @@ func get_id() -> String:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+# Decompose into tiles
+# Place tiles
+# delete self
+
+func _on_timer_timeout() -> void:
+	turn_to_dirt()
+	
+func turn_to_dirt() -> void:
+	get_parent().place_dirt(position)
+	queue_free()
