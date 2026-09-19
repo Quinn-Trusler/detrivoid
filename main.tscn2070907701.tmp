@@ -1,0 +1,94 @@
+[gd_scene format=4 uid="uid://bka7jtyv5jxw8"]
+
+[ext_resource type="Script" uid="uid://dqwn27j24kki7" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://6jq23atqfahl" path="res://doodad/doodad.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://ccd6pjgf1fw41" path="res://doodad/doodad_manager.gd" id="2_272bh"]
+[ext_resource type="PackedScene" uid="uid://6rpsoa6xjgmh" path="res://player.tscn" id="2_kek77"]
+[ext_resource type="Texture2D" uid="uid://egm31owqsr8a" path="res://art/tile_map.png" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://buv1t0er468c8" path="res://polygon_maker.gd" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://lbjvaqf8mf40" path="res://bezier_curve.gd" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://dddj1js0acrhx" path="res://art/test_cap.png" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://cybrofyva5mak" path="res://polygon_manager.gd" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://bfeivcgaxupof" path="res://hotbar.tscn" id="10_4c57u"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
+texture = ExtResource("3_h2yge")
+texture_region_size = Vector2i(64, 64)
+2:1/0 = 0
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
+[sub_resource type="TileSet" id="TileSet_lquwl"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 3
+custom_data_layer_0/name = "ID"
+custom_data_layer_0/type = 2
+sources/0 = SubResource("TileSetAtlasSource_1bvp3")
+
+[sub_resource type="Curve2D" id="Curve2D_7mycd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 100, 250, 19.464975, 39.44107, -19.464975, -39.44107, 100, 150, 0, 50, 0, 0, 17, 84, 1, 0, 0, 0, 81, 20, 0, 0, 0, 0, 220, 34, 0, 0, 0, 0, 277, 143, 0, 0, 0, 0, 191, 218, 0, 0, 0, 0, 54, 211)
+}
+point_count = 8
+
+[node name="Main" type="Node2D" unique_id=983677411 node_paths=PackedStringArray("DOODADMANAGER")]
+script = ExtResource("1_ig7tw")
+DOODADMANAGER = NodePath("DoodadManager")
+metadata/_edit_horizontal_guides_ = [-659.0]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1128116248]
+position = Vector2(1166, 616)
+zoom = Vector2(0.5, 0.5)
+
+[node name="Player" parent="." unique_id=2003071887 node_paths=PackedStringArray("SpawnPoint", "DoodadManager", "Camera") instance=ExtResource("2_kek77")]
+SpawnPoint = NodePath("../SpawnPoint")
+DoodadManager = NodePath("../DoodadManager")
+Camera = NodePath("../Camera2D")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1582092158]
+tile_map_data = PackedByteArray("AAAQAAoAAAAAAAAAAAARAAsAAAAAAAAAAAASAAoAAAAAAAAAAAAJAA0AAAAAAAAAAAAKAA0AAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAgAAAAAAAAAAAAHAAgAAAAAAAAAAAAIAAkAAAAAAAAAAAAIAAoAAAAAAAAAAAAMAA0AAAAAAAAAAAAMAA4AAAAAAAAAAAARAAkAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAAQAAIAAAAAAAAAAAAPAAIAAAAAAAAAAAAOAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAYAAAAAAAAAAAANAAYAAAAAAAAAAAAOAAYAAAAAAAAAAAAPAAYAAAAAAAAAAAAPAAUAAAAAAAAAAAAOAAUAAAAAAAAAAAANAAUAAAAAAAAAAAAMAAUAAAAAAAAAAAALAAUAAAAAAAAAAAALAAQAAAAAAAAAAAALAAMAAAAAAAAAAAAPAAQAAAAAAAAAAAAPAAMAAAAAAAAAAAAQAAQAAAAAAAAAAAAQAAMAAAAAAAAAAAAQAAUAAAAAAAAAAAAQAAYAAAAAAAAAAAARAAUAAAAAAAAAAAARAAYAAAAAAAAAAAARAAQAAAAAAAAAAAARAAMAAAAAAAAAAAARAAIAAAAAAAAAAAARAAEAAAAAAAAAAAAPAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAALAAcAAAAAAAAAAAAOAAcAAAAAAAAAAAANAAcAAAAAAAAAAAAMAAcAAAAAAAAAAAAVAAgAAAAAAAAAAAAIAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAABAAUAAAAAAAAAAAAAAAUAAAAAAAAAAAD//wUAAAAAAAAAAAD+/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAAIAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAEAAYAAAAAAAAAAAADAAYAAAAAAAAAAAACAAYAAAAAAAAAAAABAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAD//wYAAAAAAAAAAAD+/wYAAAAAAAAAAAD9/wYAAAAAAAAAAAD8/wYAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD6/wYAAAAAAAAAAAD7/wYAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_lquwl")
+
+[node name="PolygonManager" type="Node2D" parent="." unique_id=261973122 node_paths=PackedStringArray("TileLayer")]
+script = ExtResource("9_kek77")
+TileLayer = NodePath("../TileMapLayer")
+TILE_RANGE = [Vector2i(-10, -10), Vector2i(100, 100)]
+
+[node name="LineHolder" type="Node2D" parent="PolygonManager" unique_id=224168626]
+
+[node name="PolygonMaker" type="Node2D" parent="PolygonManager" unique_id=895020728 node_paths=PackedStringArray("LineHolder", "PolygonHolder")]
+script = ExtResource("6_7mycd")
+LineHolder = NodePath("../LineHolder")
+PolygonHolder = NodePath("../PolygonHolder")
+wave_height = 7
+
+[node name="PolygonHolder" type="Node2D" parent="PolygonManager" unique_id=2092332830]
+
+[node name="Mushroom" type="Path2D" parent="." unique_id=1949921319]
+visible = false
+curve = SubResource("Curve2D_7mycd")
+script = ExtResource("7_272bh")
+
+[node name="Stem" type="Line2D" parent="Mushroom" unique_id=1087273336]
+antialiased = true
+
+[node name="Cap" type="Sprite2D" parent="Mushroom" unique_id=797582681]
+texture = ExtResource("8_5vw27")
+
+[node name="DoodadManager" type="Node2D" parent="." unique_id=1970764702 node_paths=PackedStringArray("TileLayer", "PolygonManager")]
+script = ExtResource("2_272bh")
+TileLayer = NodePath("../TileMapLayer")
+PolygonManager = NodePath("../PolygonManager")
+
+[node name="Doodad" parent="DoodadManager" unique_id=1754759553 instance=ExtResource("2_0xm2m")]
+position = Vector2(136, 7)
+
+[node name="SpawnPoint" type="Node2D" parent="." unique_id=644340696]
+visible = false
+
+[node name="Polygon2D" type="Polygon2D" parent="SpawnPoint" unique_id=1230622136]
+position = Vector2(446, 201)
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(-19, -9, 0, -18, 20, -9, 19, 16, 0, 22, -18, 14)
+
+[node name="Hotbar" parent="." unique_id=513083624 instance=ExtResource("10_4c57u")]
