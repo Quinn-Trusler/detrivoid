@@ -10,13 +10,6 @@ offset_right = 100.0
 offset_bottom = 100.0
 script = ExtResource("1_1a228")
 
-[node name="Number" type="Label" parent="." unique_id=1189817476]
-layout_mode = 0
-offset_left = 54.0
-offset_top = 23.0
-offset_right = 94.0
-offset_bottom = 46.0
-
 [node name="Background" type="Sprite2D" parent="." unique_id=1981831030]
 position = Vector2(50, 50)
 texture = ExtResource("3_hrm5t")
@@ -29,3 +22,13 @@ texture = ExtResource("2_lxhn3")
 [node name="ItemIcon" type="Sprite2D" parent="." unique_id=650710948]
 z_index = 1
 position = Vector2(50, 50)
+
+[node name="Number" type="Label" parent="." unique_id=1189817476]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 51.0
+offset_right = 101.0
+offset_bottom = 106.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "11"

@@ -4,6 +4,14 @@ extends RigidBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if data:
+		setup()
+	pass
+	
+func setup(ID : String = "none"):
+	if ID != "none":
+		data = load("res://doodad/resources/"+ ID + ".tres")
+	
 	$Sprite2D.texture = data.texture
 	physics_material_override.set_friction(data.friction)
 	physics_material_override.set_bounce(data.bounce)

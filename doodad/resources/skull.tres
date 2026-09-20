@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DoodadResource" format=3 uid="uid://cdbg6tgpi0020"]
+
+[ext_resource type="Texture2D" uid="uid://cxnq6cwjqmqxi" path="res://art/doodads/skull.png" id="1_4vbtf"]
+[ext_resource type="Script" uid="uid://5j2uayd8h0sj" path="res://doodad/doodad_resource.gd" id="2_qx2yr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4vbtf"]
+radius = 50.0
+
+[resource]
+script = ExtResource("2_qx2yr")
+ID = "skull"
+display_name = "Skull"
+texture = ExtResource("1_4vbtf")
+inventory_icon = ExtResource("1_4vbtf")
+colision_shape = SubResource("CircleShape2D_4vbtf")
+colision_shape_rotation = 0.5
+friction = 0.7
+bounce = 0.0

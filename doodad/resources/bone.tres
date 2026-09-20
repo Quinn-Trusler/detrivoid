@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DoodadResource" format=3 uid="uid://cplwnss1cj2uc"]
+
+[ext_resource type="Texture2D" uid="uid://6m2cerliyl5g" path="res://art/doodads/bone.png" id="1_b7lkp"]
+[ext_resource type="Script" uid="uid://5j2uayd8h0sj" path="res://doodad/doodad_resource.gd" id="2_chqsq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+height = 118.0
+
+[resource]
+script = ExtResource("2_chqsq")
+ID = "bone"
+display_name = "Bone"
+texture = ExtResource("1_b7lkp")
+inventory_icon = ExtResource("1_b7lkp")
+colision_shape = SubResource("CapsuleShape2D_onrkg")
+colision_shape_rotation = 0.6000000000000227
+friction = 0.7
+bounce = 0.0

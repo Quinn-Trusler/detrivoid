@@ -31,9 +31,11 @@ _data = {
 }
 point_count = 8
 
-[node name="Main" type="Node2D" unique_id=983677411 node_paths=PackedStringArray("DOODADMANAGER")]
+[node name="Main" type="Node2D" unique_id=983677411 node_paths=PackedStringArray("DoodadManager", "Hotbar", "Player")]
 script = ExtResource("1_ig7tw")
-DOODADMANAGER = NodePath("DoodadManager")
+DoodadManager = NodePath("DoodadManager")
+Hotbar = NodePath("Hotbar")
+Player = NodePath("Player")
 metadata/_edit_horizontal_guides_ = [-659.0]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1128116248]
@@ -91,4 +93,4 @@ position = Vector2(446, 201)
 color = Color(1, 0, 1, 1)
 polygon = PackedVector2Array(-19, -9, 0, -18, 20, -9, 19, 16, 0, 22, -18, 14)
 
-[node name="Hotbar" parent="." unique_id=513083624 instance=ExtResource("10_4c57u")]
+[node name="Hotbar" parent="." unique_id=226577101 instance=ExtResource("10_4c57u")]

@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 func create_doodad(doodad_name, pos):
 	print("Create Doodad: ", doodad_name)
 	var new_doodad = doodad_scene.instantiate()
+	new_doodad.setup(doodad_name)
 	new_doodad.position = pos
 	add_child(new_doodad)
 	doodad_list.append(new_doodad)
