@@ -21,7 +21,12 @@ extends Resource
 @export var collidable : bool = true
 @export var despawn_time : float = -1
 
-@export_group("item_stuff")
+@export_group("Decomposition")
+@export var decomposable : bool = false
+@export var decompose_time : Vector2 = Vector2.ZERO
+@export var decompose_tile : String
+
+@export_group("Item_Stuff")
 @export var edible : bool = false
 @export var plantable : bool = false
 @export var throwable : bool = false

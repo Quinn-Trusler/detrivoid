@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DoodadResource" format=3 uid="uid://c762u8iyg38sg"]
+
+[ext_resource type="Texture2D" uid="uid://dx348cmbl3lan" path="res://art/doodads/respawn_flag.png" id="1_ij0dt"]
+[ext_resource type="Script" uid="uid://5j2uayd8h0sj" path="res://doodad/doodad_resource.gd" id="2_hubw7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ij0dt"]
+size = Vector2(20, 130)
+
+[resource]
+script = ExtResource("2_hubw7")
+ID = "respawn_flag"
+display_name = "Respawn Flag"
+texture = ExtResource("1_ij0dt")
+inventory_icon = ExtResource("1_ij0dt")
+colision_shape = SubResource("RectangleShape2D_ij0dt")
+friction = 0.7
+bounce = 0.0
+collidable = false

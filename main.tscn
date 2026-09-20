@@ -21,7 +21,8 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_lquwl"]
 tile_size = Vector2i(64, 64)
-physics_layer_0/collision_layer = 3
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 7
 custom_data_layer_0/name = "ID"
 custom_data_layer_0/type = 2
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
@@ -46,6 +47,8 @@ position = Vector2(1166, 616)
 zoom = Vector2(0.5, 0.5)
 
 [node name="Player" parent="." unique_id=2003071887 node_paths=PackedStringArray("SpawnPoint", "Camera", "HeldItem") instance=ExtResource("2_kek77")]
+collision_layer = 2
+collision_mask = 7
 SpawnPoint = NodePath("../SpawnPoint")
 Camera = NodePath("../Camera2D")
 HeldItem = NodePath("HeldItem")

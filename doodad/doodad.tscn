@@ -1,31 +1,31 @@
 [gd_scene format=3 uid="uid://6jq23atqfahl"]
 
 [ext_resource type="Script" uid="uid://bc0gxo182dkc0" path="res://doodad/doodad.gd" id="1_nyp6n"]
-[ext_resource type="Resource" uid="uid://cplwnss1cj2uc" path="res://doodad/resources/bone.tres" id="2_ghcd6"]
-[ext_resource type="Texture2D" uid="uid://6m2cerliyl5g" path="res://art/doodads/bone.png" id="3_qdyks"]
+[ext_resource type="Resource" uid="uid://c762u8iyg38sg" path="res://doodad/resources/respawn_flag.tres" id="2_ghcd6"]
+[ext_resource type="Texture2D" uid="uid://dx348cmbl3lan" path="res://art/doodads/respawn_flag.png" id="3_qdyks"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d8j85"]
 friction = 0.7
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
-height = 118.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ij0dt"]
+size = Vector2(20, 130)
 
-[node name="Doodad" type="RigidBody2D" unique_id=1754759553]
-collision_layer = 3
-collision_mask = 2
+[node name="Doodad" type="RigidBody2D" unique_id=1754759553 node_paths=PackedStringArray("DecomposeTimer")]
+collision_layer = 0
+collision_mask = 7
 mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_d8j85")
 script = ExtResource("1_nyp6n")
 data = ExtResource("2_ghcd6")
+DecomposeTimer = NodePath("DecomposeTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=498866623]
 texture = ExtResource("3_qdyks")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=445425832]
-rotation = 0.7
-shape = SubResource("CapsuleShape2D_onrkg")
+shape = SubResource("RectangleShape2D_ij0dt")
 
-[node name="Timer" type="Timer" parent="." unique_id=148482902]
+[node name="DecomposeTimer" type="Timer" parent="." unique_id=148482902]
 wait_time = 10.0
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DecomposeTimer" to="." method="_on_timer_timeout"]
