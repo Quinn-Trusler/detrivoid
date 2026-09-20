@@ -3,9 +3,10 @@ extends Resource
 
 @export_group("Basic")
 @export var ID : String = "Invalid"
-@export var display_name: String = "None"
+@export var display_name: String = "none"
 @export var texture : Texture2D
 @export var inventory_icon : Texture2D
+@export var held_texture : Texture2D
 @export var colision_shape : Shape2D
 @export var colision_shape_offset : Vector2 = Vector2.ZERO
 @export_range(-360, 360) var colision_shape_rotation : float = 0
@@ -25,10 +26,3 @@ extends Resource
 @export var plantable : bool = false
 @export var throwable : bool = false
 @export var is_tile : bool = false
-
-
-
-## Make sure this stuff has a default value
-#func _init(ID_ = "Invalid", displayName = "None"):
-	#assert(ID_ != "Invalid", "Invalid ID not allowed")
-	#health = p_health

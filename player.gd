@@ -8,10 +8,15 @@ var starting_health = 100
 var health = 0
 
 @export var SpawnPoint : Node2D
-@export var DoodadManager : Node2D
 @export var Camera : Camera2D
+@export var HeldItem : Sprite2D
 
 @onready var tween = get_tree().create_tween()
+
+
+
+signal create_doodad_at_player(item_id : String, number : int)
+
 
 func _ready() -> void:
 	tween.pause()
@@ -50,7 +55,7 @@ func take_damage(dmg : float):
 	if health <= 0:
 		die()
 func die():
-	DoodadManager.create_doodad("none", position)
+	create_doodad_at_player.emit("dead_body")
 	position = SpawnPoint.position
 	var tween_time = 1
 	tween.tween_property(Camera, "position", SpawnPoint.position, tween_time)
@@ -58,12 +63,9 @@ func die():
 	await get_tree().create_timer(tween_time).timeout
 	
 	
-	
-	
-	
-	
-	
-	# Tween camera to deth location
-	
-	
-	
+func equip(ID : String) -> void:
+	print("equip part 1")
+	HeldItem.equip(ID)
+func unequip() -> void:
+	print("unequip")
+	HeldItem.unequip()

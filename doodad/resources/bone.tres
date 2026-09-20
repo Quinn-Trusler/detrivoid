@@ -13,6 +13,6 @@ display_name = "Bone"
 texture = ExtResource("1_b7lkp")
 inventory_icon = ExtResource("1_b7lkp")
 colision_shape = SubResource("CapsuleShape2D_onrkg")
-colision_shape_rotation = 0.6000000000000227
+colision_shape_rotation = 0.6999999999999886
 friction = 0.7
 bounce = 0.0

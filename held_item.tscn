@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cgou6mjpivvag"]
+
+[ext_resource type="Texture2D" uid="uid://cxnq6cwjqmqxi" path="res://art/doodads/skull.png" id="1_6bwga"]
+[ext_resource type="Script" uid="uid://dghb2kcpcydb5" path="res://held_item.gd" id="1_uvejh"]
+[ext_resource type="Resource" uid="uid://cdbg6tgpi0020" path="res://doodad/resources/skull.tres" id="3_86ufm"]
+
+[node name="HeldItem" type="Sprite2D" unique_id=1333617083]
+texture = ExtResource("1_6bwga")
+script = ExtResource("1_uvejh")
+item_data = ExtResource("3_86ufm")

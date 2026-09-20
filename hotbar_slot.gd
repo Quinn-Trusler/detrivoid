@@ -1,11 +1,21 @@
+@tool
 extends Button
 
-var item_data : DoodadResource
+@export var item_data : DoodadResource
 var num_items : int = 0
+
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint() and item_data:
+		$ItemIcon.texture = item_data.inventory_icon
+		set_num_items(1)
 
 # True if hotbar slot is empty
 func is_empty() -> bool:
-	return (num_items <= 0)
+	if (num_items <= 0):
+		return true
+	else:
+		return false
+	 
 func get_num_items() -> int:
 	return num_items
 
@@ -13,10 +23,14 @@ func get_item_id() -> String:
 	if item_data:
 		return item_data.ID
 	else:
-		return "None"
+		return "none"
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not Engine.is_editor_hint():# Get rid of whatever is left over in editor
+		item_data = null
+		unset_item()
+		
 	$Outline.visible = false
 	$Number.visible = false
 

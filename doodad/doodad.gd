@@ -1,12 +1,13 @@
+@tool
 extends RigidBody2D
 
 @export var data : DoodadResource 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if data:
-		setup()
-	pass
+	if not Engine.is_editor_hint():
+		if data:
+			setup(data.ID)
 	
 func setup(ID : String = "none"):
 	if ID != "none":
@@ -27,9 +28,19 @@ func setup(ID : String = "none"):
 func get_id() -> String:
 	return data.ID
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+ #Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Engine.is_editor_hint():
+		if data:
+			data = load("res://doodad/resources/"+ data.ID + ".tres")
+			$Sprite2D.texture = data.texture
+			physics_material_override.set_friction(data.friction)
+			physics_material_override.set_bounce(data.bounce)
+			mass = data.mass
+			$CollisionShape2D.position = data.colision_shape_offset
+			$CollisionShape2D.rotation = data.colision_shape_rotation
+			$CollisionShape2D.shape = data.colision_shape
+			
 
 
 # Decompose into tiles
@@ -37,7 +48,8 @@ func _process(delta: float) -> void:
 # delete self
 
 func _on_timer_timeout() -> void:
-	turn_to_dirt()
+	if not Engine.is_editor_hint():
+		turn_to_dirt()
 	
 func turn_to_dirt() -> void:
 	get_parent().place_dirt(position)
