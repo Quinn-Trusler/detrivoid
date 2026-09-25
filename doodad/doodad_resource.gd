@@ -31,3 +31,4 @@ extends Resource
 @export var plantable : bool = false
 @export var throwable : bool = false
 @export var is_tile : bool = false
+@export var hold_position : Vector2 = Vector2.ZERO 

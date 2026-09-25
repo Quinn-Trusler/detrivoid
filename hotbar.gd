@@ -72,6 +72,8 @@ func add_item(ID : String, num : int) -> void:
 	# Trys to find if item already in hotbar
 	for slot in hotbar_slots:
 		if slot.get_item_id() == ID:
+			
+			print(ID + " already in hotbar.")
 			slot.add_items(num)
 			return
 	# Add item to leftmost slot

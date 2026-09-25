@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://cdbg6tgpi0020" path="res://doodad/resources/skull.tres" id="3_86ufm"]
 
 [node name="HeldItem" type="Sprite2D" unique_id=1333617083]
+position = Vector2(0, -100)
 texture = ExtResource("1_6bwga")
 script = ExtResource("1_uvejh")
 item_data = ExtResource("3_86ufm")

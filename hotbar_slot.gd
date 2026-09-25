@@ -40,6 +40,7 @@ func set_item(ID : String, num : int = 1):
 	set_num_items(num)
 	
 func unset_item():
+	item_data = null
 	$ItemIcon.texture = null
 	$Number.visible = false
 

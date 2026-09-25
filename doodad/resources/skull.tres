@@ -16,3 +16,4 @@ colision_shape = SubResource("CircleShape2D_4vbtf")
 colision_shape_rotation = 0.5
 friction = 0.7
 bounce = 0.0
+hold_position = Vector2(0, -100)

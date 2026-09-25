@@ -30,6 +30,7 @@ texture = ExtResource("5_1hrki")
 
 [node name="Number" type="Label" parent="." unique_id=1189817476]
 visible = false
+z_index = 1
 layout_mode = 0
 offset_left = 55.0
 offset_top = 51.0

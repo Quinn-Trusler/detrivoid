@@ -15,4 +15,5 @@ inventory_icon = ExtResource("1_ij0dt")
 colision_shape = SubResource("RectangleShape2D_ij0dt")
 friction = 0.7
 bounce = 0.0
+pickupable = false
 collidable = false

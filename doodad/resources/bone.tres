@@ -16,3 +16,4 @@ colision_shape = SubResource("CapsuleShape2D_onrkg")
 colision_shape_rotation = 0.6999999999999886
 friction = 0.7
 bounce = 0.0
+collidable = false

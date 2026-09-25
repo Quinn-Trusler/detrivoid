@@ -19,11 +19,16 @@ func _ready() -> void:
 	Hotbar.add_item("dead_body", 5)
 	Hotbar.add_item("dead_body", -2)
 	Hotbar.add_item("bone", 5)
+	Hotbar.add_item("skull", 5)
 	
+	connect_signals()
+	
+func connect_signals() -> void:
 	Hotbar.create_doodad_at_player.connect(_create_doodad_at_player)
 	Hotbar.equip.connect(_equip)
 	Hotbar.unequip.connect(_unequip)
 	Player.create_doodad_at_player.connect(_create_doodad_at_player)
+	Player.add_item_to_inventory.connect(_add_item_to_inventory)
 	
 
 	
@@ -64,4 +69,6 @@ func _equip(ID : String):
 	Player.equip(ID)
 func _unequip():
 	Player.unequip()
+func _add_item_to_inventory(ID : String, num : int = 1):
+	Hotbar.add_item(ID, num)
 	

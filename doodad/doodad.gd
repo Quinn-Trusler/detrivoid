@@ -1,8 +1,12 @@
 @tool
+class_name Doodad
 extends RigidBody2D
 
 @export var data : DoodadResource
 @export var DecomposeTimer : Timer
+@export var CollisionShape : CollisionShape2D
+@export var DoodadArea : Area2D
+@export var DoodadAreaCollisionShape : CollisionShape2D
 
 var RNG = RandomNumberGenerator.new() 
 
@@ -20,14 +24,17 @@ func _ready() -> void:
 func setup(ID : String = "none"):
 	if ID != "none":
 		data = load("res://doodad/resources/"+ ID + ".tres")
+	apply_item_data()
 	
+func apply_item_data():
 	$Sprite2D.texture = data.texture
 	physics_material_override.set_friction(data.friction)
 	physics_material_override.set_bounce(data.bounce)
 	mass = data.mass
-	$CollisionShape2D.position = data.colision_shape_offset
-	$CollisionShape2D.rotation = data.colision_shape_rotation
-	$CollisionShape2D.shape = data.colision_shape
+	CollisionShape.position = data.colision_shape_offset
+	CollisionShape.rotation = data.colision_shape_rotation
+	CollisionShape.shape = data.colision_shape
+	DoodadAreaCollisionShape.shape = data.colision_shape
 	
 	set_collidable(data.collidable)
 		
@@ -45,6 +52,8 @@ func set_collidable(value : bool) -> void:
 
 func get_id() -> String:
 	return data.ID
+func is_pickupable() -> bool:
+	return data.pickupable
 
  #Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -55,15 +64,21 @@ func _process(delta: float) -> void:
 			physics_material_override.set_friction(data.friction)
 			physics_material_override.set_bounce(data.bounce)
 			mass = data.mass
-			$CollisionShape2D.position = data.colision_shape_offset
-			$CollisionShape2D.rotation = data.colision_shape_rotation
-			$CollisionShape2D.shape = data.colision_shape
+			CollisionShape.position = data.colision_shape_offset
+			CollisionShape.rotation = data.colision_shape_rotation
+			CollisionShape.shape = data.colision_shape
 			
 
 
 # Decompose into tiles
 # Place tiles
 # delete self
+
+func set_pickup_tag(value : bool) -> void:
+	$PickupTag.visible = value
+	print("Updating pickup tag", data.ID, value)
+	
+	
 
 func _on_timer_timeout() -> void:
 	if not Engine.is_editor_hint():

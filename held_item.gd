@@ -23,6 +23,7 @@ func apply_item_data():
 		texture = item_data.held_texture
 	else:
 		texture = item_data.texture
+	position = item_data.hold_position
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint() and item_data:

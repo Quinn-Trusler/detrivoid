@@ -22,6 +22,9 @@ height = 118.0
 radius = 20.0
 height = 118.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
+radius = 87.36704
+
 [node name="Player" type="CharacterBody2D" unique_id=2003071887]
 script = ExtResource("1_4flbx")
 
@@ -35,3 +38,11 @@ shape = SubResource("CapsuleShape2D_4c57u")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1561267387]
 shape = SubResource("CapsuleShape2D_w01tv")
+
+[node name="ItemField" type="Area2D" parent="." unique_id=468484280]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemField" unique_id=961016594]
+shape = SubResource("CircleShape2D_onrkg")
+
+[connection signal="area_entered" from="ItemField" to="." method="_on_item_field_area_entered"]
+[connection signal="area_exited" from="ItemField" to="." method="_on_item_field_area_exited"]

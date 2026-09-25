@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dddj1js0acrhx" path="res://art/test_cap.png" id="8_5vw27"]
 [ext_resource type="Script" uid="uid://cybrofyva5mak" path="res://polygon_manager.gd" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://bfeivcgaxupof" path="res://hotbar.tscn" id="10_4c57u"]
+[ext_resource type="Resource" uid="uid://c762u8iyg38sg" path="res://doodad/resources/respawn_flag.tres" id="10_dg77c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("3_h2yge")
@@ -22,7 +23,7 @@ texture_region_size = Vector2i(64, 64)
 [sub_resource type="TileSet" id="TileSet_lquwl"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 7
+physics_layer_0/collision_mask = 15
 custom_data_layer_0/name = "ID"
 custom_data_layer_0/type = 2
 sources/0 = SubResource("TileSetAtlasSource_1bvp3")
@@ -46,15 +47,6 @@ metadata/_edit_horizontal_guides_ = [-659.0]
 position = Vector2(1166, 616)
 zoom = Vector2(0.5, 0.5)
 
-[node name="Player" parent="." unique_id=2003071887 node_paths=PackedStringArray("SpawnPoint", "Camera", "HeldItem") instance=ExtResource("2_kek77")]
-collision_layer = 2
-collision_mask = 7
-SpawnPoint = NodePath("../SpawnPoint")
-Camera = NodePath("../Camera2D")
-HeldItem = NodePath("HeldItem")
-
-[node name="HeldItem" parent="Player" unique_id=1333617083 instance=ExtResource("3_efxa6")]
-
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1582092158]
 tile_map_data = PackedByteArray("AAAQAAoAAAAAAAAAAAARAAsAAAAAAAAAAAASAAoAAAAAAAAAAAAJAA0AAAAAAAAAAAAKAA0AAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAgAAAAAAAAAAAAHAAgAAAAAAAAAAAAIAAkAAAAAAAAAAAAIAAoAAAAAAAAAAAAMAA0AAAAAAAAAAAAMAA4AAAAAAAAAAAARAAkAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAAQAAIAAAAAAAAAAAAPAAIAAAAAAAAAAAAOAAIAAAAAAAAAAAANAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAMAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAYAAAAAAAAAAAANAAYAAAAAAAAAAAAOAAYAAAAAAAAAAAAPAAYAAAAAAAAAAAAPAAUAAAAAAAAAAAAOAAUAAAAAAAAAAAANAAUAAAAAAAAAAAAMAAUAAAAAAAAAAAALAAUAAAAAAAAAAAALAAQAAAAAAAAAAAALAAMAAAAAAAAAAAAPAAQAAAAAAAAAAAAPAAMAAAAAAAAAAAAQAAQAAAAAAAAAAAAQAAMAAAAAAAAAAAAQAAUAAAAAAAAAAAAQAAYAAAAAAAAAAAARAAUAAAAAAAAAAAARAAYAAAAAAAAAAAARAAQAAAAAAAAAAAARAAMAAAAAAAAAAAARAAIAAAAAAAAAAAARAAEAAAAAAAAAAAAPAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAALAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAALAAcAAAAAAAAAAAAOAAcAAAAAAAAAAAANAAcAAAAAAAAAAAAMAAcAAAAAAAAAAAAVAAgAAAAAAAAAAAAIAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAABAAUAAAAAAAAAAAAAAAUAAAAAAAAAAAD//wUAAAAAAAAAAAD+/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAAIAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAGAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAEAAYAAAAAAAAAAAADAAYAAAAAAAAAAAACAAYAAAAAAAAAAAABAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAD//wYAAAAAAAAAAAD+/wYAAAAAAAAAAAD9/wYAAAAAAAAAAAD8/wYAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD6/wYAAAAAAAAAAAD7/wYAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_lquwl")
@@ -75,7 +67,6 @@ wave_height = 7
 [node name="PolygonHolder" type="Node2D" parent="PolygonManager" unique_id=2092332830]
 
 [node name="Mushroom" type="Path2D" parent="." unique_id=1949921319]
-visible = false
 curve = SubResource("Curve2D_7mycd")
 script = ExtResource("7_272bh")
 
@@ -90,9 +81,6 @@ script = ExtResource("2_272bh")
 TileLayer = NodePath("../TileMapLayer")
 PolygonManager = NodePath("../PolygonManager")
 
-[node name="Doodad" parent="DoodadManager" unique_id=1754759553 instance=ExtResource("2_0xm2m")]
-position = Vector2(136, 7)
-
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=644340696]
 visible = false
 
@@ -102,3 +90,15 @@ color = Color(1, 0, 1, 1)
 polygon = PackedVector2Array(-19, -9, 0, -18, 20, -9, 19, 16, 0, 22, -18, 14)
 
 [node name="Hotbar" parent="." unique_id=226577101 instance=ExtResource("10_4c57u")]
+
+[node name="RespawnFlag" parent="." unique_id=2096503461 instance=ExtResource("2_0xm2m")]
+data = ExtResource("10_dg77c")
+
+[node name="Player" parent="." unique_id=2003071887 node_paths=PackedStringArray("SpawnPoint", "Camera", "HeldItem") instance=ExtResource("2_kek77")]
+collision_layer = 2
+collision_mask = 7
+SpawnPoint = NodePath("../RespawnFlag")
+Camera = NodePath("../Camera2D")
+HeldItem = NodePath("HeldItem")
+
+[node name="HeldItem" parent="Player" unique_id=1333617083 instance=ExtResource("3_efxa6")]
