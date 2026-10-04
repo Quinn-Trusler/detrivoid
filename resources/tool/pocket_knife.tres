@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ToolResource" format=3 uid="uid://c36j34bbjxpo8"]
+
+[ext_resource type="Script" uid="uid://befyq5pl3kkqy" path="res://doodad/tool_resource.gd" id="1_va3nq"]
+
+[resource]
+script = ExtResource("1_va3nq")
+scavenge_power = 3.0

@@ -4,8 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-var starting_health = 100
-var health = 0
+var starting_health : int = 100
 
 @export var SpawnPoint : Node2D
 @export var Camera : Camera2D
@@ -13,12 +12,15 @@ var health = 0
 
 @onready var tween = get_tree().create_tween()
 
-var doodads_in_field : Array= []
-var closest_doodad = null
-
+enum Action {NONE, SCAVENGE}
 
 signal create_doodad_at_player(item_id : String, number : int)
 signal add_item_to_inventory(item_id : String, number : int)
+
+# Subject to change
+var health : int = 0
+var current_action : Action = Action.NONE
+var scavenge_doodad = null
 
 
 func _ready() -> void:
@@ -30,12 +32,10 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_up") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -55,6 +55,15 @@ func _process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("pickup_item"):
 		pickup_doodad()
+		
+	if current_action == Action.NONE:
+		if Input.is_action_pressed("scavenge"):
+			start_scavenge()
+				
+	if Input.is_action_just_released("scavenge") and current_action == Action.SCAVENGE:
+		cancel_scavenge()
+		
+		
 
 func take_damage(dmg : float):
 	health -= dmg
@@ -76,58 +85,47 @@ func equip(ID : String) -> void:
 func unequip() -> void:
 	print("unequip")
 	HeldItem.unequip()
-	
-	
-# To get the closest item:
-# Add objects that enter field
-# Remove objects that leave field
-# Calculate closes item based on position
-
-func get_dist_sqrd(vec1 : Vector2, vec2 : Vector2):
-	return (vec1.x - vec2.x)**2 + (vec1.y - vec2.y)**2
 
 func pickup_doodad():
-	if closest_doodad == null:
-		print("No Doodad to pickup") # will want to put sound hear in futur
+	var doodad_id = $ItemArea.pickup_doodad()
+	if doodad_id:
+		add_item_to_inventory.emit(doodad_id, 1)
 	else:
-		add_item_to_inventory.emit(closest_doodad.get_id(), 1)
-		doodads_in_field.erase(closest_doodad)
-		closest_doodad.queue_free()
-		closest_doodad = null
-		update_closest_doodad_in_field()
-		
+		print("No Doodad pickup up") # Add sound to play here in future
 
-func update_closest_doodad_in_field():
-	if len(doodads_in_field) == 0:
-		closest_doodad = null 
+func _on_action_timer_timeout() -> void:
+	if current_action == Action.NONE:
+		assert(false, "Action timer should never end on none")
+	elif current_action == Action.SCAVENGE:
+		finish_scavenge()
+	$ActionTimer.stop()
+	current_action = Action.NONE
+	
+func start_scavenge() -> void:
+	print("start scavenge")
+	if HeldItem.can_scavenge():
+		scavenge_doodad = $ScavengeArea.get_doodad_in_scavenge_area()
+		if scavenge_doodad:
+			$ActionTimer.wait_time = scavenge_doodad.get_scavenge_time() / HeldItem.get_scavenge_power()
+			$ActionTimer.start()
+			current_action = Action.SCAVENGE
+			print("Scavenging " + scavenge_doodad.get_id() + " with " + str($ActionTimer.time_left) + " untill completion")
 	else:
-		if closest_doodad:
-			closest_doodad.set_pickup_tag(false)
-		#var old_closest_doodad = closest_doodad
-		closest_doodad = doodads_in_field[0]
-		for doodad in doodads_in_field:
-			if get_dist_sqrd(position, doodad.position) < get_dist_sqrd(position, closest_doodad.position):
-				closest_doodad = doodad
+		print("The item you are holding cannot be used to scavenge")
 		
-		closest_doodad.set_pickup_tag(true)
-			
-	# Also write code to deal with non pickupables (Keep them in field but just ignore)
-		#deal with setting closest null edge case when deleting from field
-
-func _on_item_field_area_entered(area: Area2D) -> void:
-	if area.is_in_group("doodad"):
-		var doodad = area.get_parent()
-		if doodad.is_pickupable():
-			doodads_in_field.append(doodad)
-			update_closest_doodad_in_field()
-			
-		
-
-
-func _on_item_field_area_exited(area: Area2D) -> void:
-	if area.is_in_group("doodad"):
-		var doodad = area.get_parent()
-		if doodad.is_pickupable():
-			doodad.set_pickup_tag(false)
-			doodads_in_field.erase(doodad)
-			update_closest_doodad_in_field()
+func cancel_scavenge() -> void:
+	$ActionTimer.stop()
+	print("Scavenging of " + scavenge_doodad.get_id() + "Canceled")
+	scavenge_doodad = null
+	current_action = Action.NONE
+	
+func finish_scavenge() -> void:
+	var items : Dictionary = scavenge_doodad.scavenge()
+	print("Scavenging of " + scavenge_doodad.get_id() + "Finished")
+	print("The following items have been added to inventory: ", items)
+	scavenge_doodad = null
+	
+	for item in items:
+		add_item_to_inventory.emit(item, items[item])
+	
+	

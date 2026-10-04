@@ -18,7 +18,7 @@ func _ready() -> void:
 	#Hotbar.set_item_in_slot("dead_body", 0, 1)
 	Hotbar.add_item("dead_body", 5)
 	Hotbar.add_item("dead_body", -2)
-	Hotbar.add_item("bone", 5)
+	Hotbar.add_item("pocket_knife", 5)
 	Hotbar.add_item("skull", 5)
 	
 	connect_signals()

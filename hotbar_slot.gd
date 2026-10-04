@@ -35,7 +35,8 @@ func _ready() -> void:
 	$Number.visible = false
 
 func set_item(ID : String, num : int = 1):
-	item_data = load("doodad/resources/" +str(ID) +".tres")
+	item_data = load("resources/doodad/" +str(ID) +".tres")
+	assert(item_data.ID == ID, "Filename and it's ID do not match")
 	$ItemIcon.texture = item_data.inventory_icon
 	set_num_items(num)
 	

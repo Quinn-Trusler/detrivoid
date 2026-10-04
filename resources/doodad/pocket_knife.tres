@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="DoodadResource" format=3 uid="uid://ddy733v2fkk4e"]
+
+[ext_resource type="Texture2D" uid="uid://dr1e8qva15t6o" path="res://art/doodads/pocket_knife.png" id="1_nnpkk"]
+[ext_resource type="Script" uid="uid://5j2uayd8h0sj" path="res://doodad/doodad_resource.gd" id="2_nnpkk"]
+[ext_resource type="Resource" uid="uid://c36j34bbjxpo8" path="res://resources/tool/pocket_knife.tres" id="3_nnpkk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+height = 118.0
+
+[resource]
+script = ExtResource("2_nnpkk")
+ID = "pocket_knife"
+display_name = "Pocket Knife"
+texture = ExtResource("1_nnpkk")
+inventory_icon = ExtResource("1_nnpkk")
+colision_shape = SubResource("CapsuleShape2D_onrkg")
+colision_shape_rotation = 0.6999999999999886
+friction = 0.7
+bounce = 0.0
+collidable = false
+tool = ExtResource("3_nnpkk")

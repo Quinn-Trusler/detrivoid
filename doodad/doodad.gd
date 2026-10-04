@@ -23,7 +23,8 @@ func _ready() -> void:
 	
 func setup(ID : String = "none"):
 	if ID != "none":
-		data = load("res://doodad/resources/"+ ID + ".tres")
+		data = load("res://resources/doodad/"+ ID + ".tres")
+		assert(data.ID == ID, "Filename and it's ID do not match")
 	apply_item_data()
 	
 func apply_item_data():
@@ -54,12 +55,16 @@ func get_id() -> String:
 	return data.ID
 func is_pickupable() -> bool:
 	return data.pickupable
+func is_scavengeable() -> bool:
+	return (not data.scavenge_time == -1)
+func get_scavenge_time() -> float:
+	return data.scavenge_time
 
  #Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		if data:
-			data = load("res://doodad/resources/"+ data.ID + ".tres")
+			data = load("res://resources/doodad/"+ data.ID + ".tres")
 			$Sprite2D.texture = data.texture
 			physics_material_override.set_friction(data.friction)
 			physics_material_override.set_bounce(data.bounce)
@@ -67,7 +72,6 @@ func _process(delta: float) -> void:
 			CollisionShape.position = data.colision_shape_offset
 			CollisionShape.rotation = data.colision_shape_rotation
 			CollisionShape.shape = data.colision_shape
-			
 
 
 # Decompose into tiles
@@ -76,8 +80,13 @@ func _process(delta: float) -> void:
 
 func set_pickup_tag(value : bool) -> void:
 	$PickupTag.visible = value
-	print("Updating pickup tag", data.ID, value)
-	
+	#print("Updating pickup tag ", data.ID + " " + str(value))
+func set_scavenge_tag(value : bool) -> void:
+	#$PickupTag.visible = value
+	print("Updating scavenge tag(not yet implemented) ", data.ID + " " + str(value))
+
+func scavenge() -> Dictionary:
+	return {"bone" : 1,"skull" : 1}
 	
 
 func _on_timer_timeout() -> void:

@@ -20,6 +20,7 @@ extends Resource
 @export var pickupable : bool = true
 @export var collidable : bool = true
 @export var despawn_time : float = -1
+@export var scavenge_time : float = -1
 
 @export_group("Decomposition")
 @export var decomposable : bool = false
@@ -32,3 +33,4 @@ extends Resource
 @export var throwable : bool = false
 @export var is_tile : bool = false
 @export var hold_position : Vector2 = Vector2.ZERO 
+@export var tool : ToolResource

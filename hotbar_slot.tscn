@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dr27p138ddg2e"]
 
 [ext_resource type="Script" uid="uid://cq785unw12ibw" path="res://hotbar_slot.gd" id="1_1a228"]
-[ext_resource type="Resource" uid="uid://cdbg6tgpi0020" path="res://doodad/resources/skull.tres" id="2_jjfv2"]
+[ext_resource type="Resource" uid="uid://cdbg6tgpi0020" path="res://resources/doodad/skull.tres" id="2_jjfv2"]
 [ext_resource type="Texture2D" uid="uid://iblftnu0jeiw" path="res://art/ui/slot_outline.png" id="2_lxhn3"]
 [ext_resource type="Texture2D" uid="uid://dbks3826xcv87" path="res://art/ui/inventory_slot.png" id="3_hrm5t"]
 [ext_resource type="Texture2D" uid="uid://cxnq6cwjqmqxi" path="res://art/doodads/skull.png" id="5_1hrki"]

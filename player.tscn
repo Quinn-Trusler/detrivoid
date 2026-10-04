@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://wnxkgg3fj8nv" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://clgey8pby8q1r" path="res://art/player.png" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://crlhf8eiasl1k" path="res://item_field.gd" id="3_hqtel"]
+[ext_resource type="PackedScene" uid="uid://cgou6mjpivvag" path="res://held_item.tscn" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://bytyqew7q8av4" path="res://scavenge_area.gd" id="4_sweqy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jcy32"]
 animations = [{
@@ -25,8 +28,12 @@ height = 118.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 87.36704
 
-[node name="Player" type="CharacterBody2D" unique_id=2003071887]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghcd6"]
+size = Vector2(152, 20)
+
+[node name="Player" type="CharacterBody2D" unique_id=2003071887 node_paths=PackedStringArray("HeldItem")]
 script = ExtResource("1_4flbx")
+HeldItem = NodePath("HeldItem")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=195792108]
 sprite_frames = SubResource("SpriteFrames_jcy32")
@@ -39,10 +46,25 @@ shape = SubResource("CapsuleShape2D_4c57u")
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=1561267387]
 shape = SubResource("CapsuleShape2D_w01tv")
 
-[node name="ItemField" type="Area2D" parent="." unique_id=468484280]
+[node name="ItemArea" type="Area2D" parent="." unique_id=468484280]
+script = ExtResource("3_hqtel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemField" unique_id=961016594]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemArea" unique_id=961016594]
 shape = SubResource("CircleShape2D_onrkg")
 
-[connection signal="area_entered" from="ItemField" to="." method="_on_item_field_area_entered"]
-[connection signal="area_exited" from="ItemField" to="." method="_on_item_field_area_exited"]
+[node name="ScavengeArea" type="Area2D" parent="." unique_id=550824263]
+script = ExtResource("4_sweqy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScavengeArea" unique_id=1032103226]
+position = Vector2(0, 68)
+shape = SubResource("RectangleShape2D_ghcd6")
+
+[node name="HeldItem" parent="." unique_id=1333617083 instance=ExtResource("3_i3pqv")]
+
+[node name="ActionTimer" type="Timer" parent="." unique_id=1941484184]
+
+[connection signal="area_entered" from="ItemArea" to="ItemArea" method="_on_area_entered"]
+[connection signal="area_exited" from="ItemArea" to="ItemArea" method="_on_area_exited"]
+[connection signal="area_entered" from="ScavengeArea" to="ScavengeArea" method="_on_area_entered"]
+[connection signal="area_exited" from="ScavengeArea" to="ScavengeArea" method="_on_area_exited"]
+[connection signal="timeout" from="ActionTimer" to="." method="_on_action_timer_timeout"]
