@@ -29,18 +29,21 @@ func get_item_id() -> String:
 func _ready() -> void:
 	if not Engine.is_editor_hint():# Get rid of whatever is left over in editor
 		item_data = null
-		unset_item()
+		_unset_item()
 		
 	$Outline.visible = false
 	$Number.visible = false
 
 func set_item(ID : String, num : int = 1):
-	item_data = load("resources/doodad/" +str(ID) +".tres")
-	assert(item_data.ID == ID, "Filename and it's ID do not match")
-	$ItemIcon.texture = item_data.inventory_icon
 	set_num_items(num)
+	if num > 0:
+		# if new id
+		if not (item_data and item_data.ID == ID):
+			item_data = load("resources/doodad/" +str(ID) +".tres")
+			assert(item_data.ID == ID, "Filename and it's ID do not match: " + ID)
+			$ItemIcon.texture = item_data.inventory_icon
 	
-func unset_item():
+func _unset_item():
 	item_data = null
 	$ItemIcon.texture = null
 	$Number.visible = false
@@ -53,12 +56,11 @@ func set_num_items(num: int):
 	if num_items == 1:
 		$Number.visible = false
 	else:
-		print("Setting string to visible")
 		$Number.text = str(num_items)
 		$Number.visible = true
 	assert(num_items >= 0, "Negative number of items left: " + str(num_items))
 	if num_items == 0:
-		unset_item()
+		_unset_item()
 
 func select():
 	$Outline.visible = true

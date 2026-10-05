@@ -15,7 +15,7 @@ var selected_index : int = -1
 func _ready() -> void:
 	pass
 	
-
+var inventory_data := InventoryData.new(3)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -29,29 +29,44 @@ func _process(_delta: float) -> void:
 		select_slot(posmod(selected_index + 1 ,len(hotbar_slots)))
 	
 	if Input.is_action_just_pressed("drop_item"):
-		drop_item_from_slot(selected_index, 1)
+		if selected_index != -1 and not inventory_data.is_empty(selected_index):
+			drop_item_from_slot(selected_index, 1)
 		
 # Drops a certain number of items onto the ground
 # -1 means drop all items in slot
 func drop_item_from_slot(slot_num :int, num : int):
-	var slot = hotbar_slots[slot_num]
-	if not slot.is_empty():
-		if num == -1:
-			num = slot.get_num_items()
-		var item_id = slot.get_item_id()
-		slot.add_items(-num)
-		create_doodad_at_player.emit(item_id, num)
-		# Unequip item if none left in slot
-		if slot_num == selected_index and slot.is_empty():
-			unequip.emit()
-			
+	var ID = inventory_data.get_id(slot_num)
+	var num_removed = inventory_data.remove_items_from_slot(slot_num, num)
+
+	print("Dropping the following ID: " + ID)
+	create_doodad_at_player.emit(ID, num_removed)
+	update_hotbar_slot(slot_num)
+	
+	# Unequip item if none left in slot
+	if slot_num == selected_index and inventory_data.is_empty(slot_num):
+		unequip.emit()
 		
-# Sets ID at a slot number
+# Sets ID and num at a slot number
 func set_item_in_slot(ID : String, slot_num : int, num : int = 1):
-	hotbar_slots[slot_num].set_item(ID, num)
+	inventory_data.set_item_in_slot(ID, slot_num, num)
+	update_hotbar_slot(slot_num)
 	equip.emit(ID)
 
-# Selects slot based on slot num
+
+# Stacks item in hotbar or adds to leftmost available slot
+func add_items(ID : String, num : int) -> void:
+	var slot_num = inventory_data.add_items(ID, num)
+	
+	if slot_num == -1:
+		assert(false, "Hotbar full, cannot add item")
+	else:
+		update_hotbar_slot(slot_num)
+		if selected_index == slot_num: # Add check to see if previously empty
+			equip.emit(ID)
+
+func update_hotbar_slot(slot_num):
+	hotbar_slots[slot_num].set_item(inventory_data.get_id(slot_num),inventory_data.get_num(slot_num))
+
 func select_slot(slot_num : int):
 	if selected_index == slot_num: # Slot already selected
 		hotbar_slots[selected_index].deselect()
@@ -67,22 +82,9 @@ func select_slot(slot_num : int):
 		else:
 			equip.emit(hotbar_slots[selected_index].get_item_id())
 	
-# Stacks item in hotbar or adds to leftmost available slot
-func add_item(ID : String, num : int) -> void:
-	# Trys to find if item already in hotbar
-	for slot in hotbar_slots:
-		if slot.get_item_id() == ID:
-			
-			slot.add_items(num)
-			return
-	# Add item to leftmost slot
-	for slot in hotbar_slots:
-		if slot.num_items == 0:
-			slot.set_item(ID, num)
-			if hotbar_slots[selected_index] == slot:
-				equip.emit(ID)
-			return
-	assert(false, "Hotbar full, cannot add item")
+
+
+
 		
 	
 	

@@ -21,8 +21,8 @@ func _ready() -> void:
 		if data:
 			setup(data.ID)
 	
-func setup(ID : String = "none"):
-	if ID != "none":
+func setup(ID : String = ""):
+	if ID != "" and ID != "none":
 		data = load("res://resources/doodad/"+ ID + ".tres")
 		assert(data.ID == ID, "Filename and it's ID do not match")
 	apply_item_data()

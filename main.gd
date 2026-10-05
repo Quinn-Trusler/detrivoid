@@ -16,10 +16,10 @@ var ind2 = 0
 
 func _ready() -> void:
 	#Hotbar.set_item_in_slot("dead_body", 0, 1)
-	Hotbar.add_item("dead_body", 5)
-	Hotbar.add_item("dead_body", -2)
-	Hotbar.add_item("pocket_knife", 5)
-	Hotbar.add_item("skull", 5)
+	Hotbar.add_items("dead_body", 5)
+	Hotbar.add_items("dead_body", -2)
+	Hotbar.add_items("pocket_knife", 5)
+	Hotbar.add_items("skull", 5)
 	
 	connect_signals()
 	
@@ -70,5 +70,5 @@ func _equip(ID : String):
 func _unequip():
 	Player.unequip()
 func _add_item_to_inventory(ID : String, num : int = 1):
-	Hotbar.add_item(ID, num)
+	Hotbar.add_items(ID, num)
 	
