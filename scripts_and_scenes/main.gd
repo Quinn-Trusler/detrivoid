@@ -6,6 +6,7 @@ var doodad_scene = load("res://doodad.tscn")
 @export var Player : CharacterBody2D
 @export var TileLayer : TileMapLayer
 @export var PolygonManager : Node2D
+@export var InventoryManger : Node2D
 
 const TILE = Vector2(0,0)
 
@@ -15,11 +16,9 @@ var testing_removal_tiles = [Vector2(7,13), Vector2(6,13), Vector2(7,13), Vector
 var ind2 = 0
 
 func _ready() -> void:
-	#Hotbar.set_item_in_slot("dead_body", 0, 1)
-	Hotbar.add_items("dead_body", 5)
-	Hotbar.add_items("dead_body", -2)
-	Hotbar.add_items("pocket_knife", 5)
-	Hotbar.add_items("skull", 5)
+	InventoryManger.add_items("dead_body", 5)
+	InventoryManger.add_items("dead_body", -2)
+	InventoryManger.add_items("pocket_knife", 5)
 	
 	connect_signals()
 	
@@ -37,7 +36,10 @@ func connect_signals() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug"):
-		Player.die()
+		#Player.die()
+		print(InventoryManger.get_inventory_data())
+		Hotbar.set_item_in_slot("skull",2, 5)
+		
 		#DOODADMANAGER.create_doodad("none", get_local_mouse_position())
 		#if ind < len(testing_tiles):
 			#add_tile(testing_tiles[ind])
@@ -70,5 +72,5 @@ func _equip(ID : String):
 func _unequip():
 	Player.unequip()
 func _add_item_to_inventory(ID : String, num : int = 1):
-	Hotbar.add_items(ID, num)
+	InventoryManger.add_items(ID, num)
 	

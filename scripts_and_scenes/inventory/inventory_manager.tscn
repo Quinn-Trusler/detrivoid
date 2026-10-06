@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bhl3kfq5gkkr4"]
+
+[ext_resource type="Script" uid="uid://c3x1meaavtw4f" path="res://inventory_manager.gd" id="1_0mdak"]
+[ext_resource type="PackedScene" uid="uid://28hjrbdwac13" path="res://scripts_and_scenes/inventory/inventory.tscn" id="3_kagau"]
+
+[node name="InventoryManager" type="Node2D" unique_id=719036618 node_paths=PackedStringArray("Inventory")]
+script = ExtResource("1_0mdak")
+Inventory = NodePath("Inventory")
+
+[node name="Inventory" parent="." unique_id=1331243341 instance=ExtResource("3_kagau")]

@@ -9,7 +9,8 @@ func _init(size : int):
 	for i in range(size):
 		item_slots[i] = {D_Key.ID : "", D_Key.NUM : 0}
 
-
+func get_num_slots():
+	return len(item_slots)
 func get_id(slot_num : int) -> String:
 	return item_slots[slot_num][D_Key.ID]
 func get_num(slot_num : int) -> int:
@@ -70,4 +71,16 @@ func add_items(ID : String, num : int) -> int:
 			set_item_in_slot(ID, slot_num, num)
 			return slot_num
 	return -1
+
+func _to_string() -> String:
+	var text = "Inventory Data: "
+	for slot_num in item_slots:
+		text += "\n"
+		text += str(slot_num) + ": "
+		if is_empty(slot_num):
+			text += "-"
+		else:
+			text += str(item_slots[slot_num][D_Key.NUM]) + " " 
+			text += item_slots[slot_num][D_Key.ID] 
+	return text
 		

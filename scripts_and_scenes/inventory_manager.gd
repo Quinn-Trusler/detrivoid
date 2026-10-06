@@ -1,8 +1,5 @@
-extends Node
+extends Node2D
 
-class_name Item
-
-@export var item_name : String = "Unnamed"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

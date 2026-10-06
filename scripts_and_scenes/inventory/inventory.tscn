@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://28hjrbdwac13"]
+
+[ext_resource type="Script" uid="uid://dgjnjt7npnc7c" path="res://scripts_and_scenes/inventory/inventory.gd" id="1_vb24t"]
+
+[node name="Inventory" type="CanvasLayer" unique_id=1331243341]
+script = ExtResource("1_vb24t")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1016074093]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 140.0
+offset_bottom = 140.0

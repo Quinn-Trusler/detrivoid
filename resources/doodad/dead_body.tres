@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DoodadResource" format=3 uid="uid://d07mb4memtmro"]
 
-[ext_resource type="Texture2D" uid="uid://dmllr1251sbhq" path="res://art/player_dead.png" id="1_qw7v4"]
+[ext_resource type="Texture2D" uid="uid://dmllr1251sbhq" path="res://art/doodads/player_dead.png" id="1_qw7v4"]
 [ext_resource type="Script" uid="uid://5j2uayd8h0sj" path="res://doodad/doodad_resource.gd" id="2_nbceg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bc0gxo182dkc0" path="res://doodad/doodad.gd" id="1_nyp6n"]
 [ext_resource type="Resource" uid="uid://d07mb4memtmro" path="res://resources/doodad/dead_body.tres" id="2_ghcd6"]
-[ext_resource type="Texture2D" uid="uid://dmllr1251sbhq" path="res://art/player_dead.png" id="3_qdyks"]
+[ext_resource type="Texture2D" uid="uid://dmllr1251sbhq" path="res://art/doodads/player_dead.png" id="3_qdyks"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d8j85"]
 friction = 0.7

@@ -2,7 +2,10 @@
 extends Button
 
 @export var item_data : DoodadResource
-var num_items : int = 0
+@export var num_items : int = 0
+@export var slot_number : int
+
+signal slot_pressed(slot_number : int)
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint() and item_data:
@@ -15,7 +18,10 @@ func is_empty() -> bool:
 		return true
 	else:
 		return false
-	 
+	
+func set_slot_num(num) -> void:
+	slot_number = num
+	
 func get_num_items() -> int:
 	return num_items
 
@@ -67,3 +73,7 @@ func select():
 
 func deselect():
 	$Outline.visible = false
+
+
+func _on_pressed() -> void:
+	slot_pressed.emit(slot_number)

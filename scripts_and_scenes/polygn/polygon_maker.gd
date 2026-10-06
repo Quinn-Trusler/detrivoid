@@ -38,7 +38,7 @@ const RIGHT = Vector2i(1,0)
 const DOWN = Vector2i(0,1)
 const UP = Vector2i(0,-1)
 
-var TEXTURES = {0 : load("res://art/test_dirt.png")}
+var TEXTURES = {0 : load("res://art/tileset/test_dirt.png")}
 const TILE_SIZE = Vector2i(64,64)
 const HALF_WIDTH := TILE_SIZE.x * 0.5
 const HALF_HEIGHT := TILE_SIZE.y * 0.5

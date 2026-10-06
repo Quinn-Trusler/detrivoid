@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmllr1251sbhq"
-path="res://.godot/imported/player_dead.png-ab6c4cb52094cfc6ca5acada7c242eca.ctex"
+uid="uid://bwej558vypmle"
+path="res://.godot/imported/test_dirt.png-5e9f4cc86290a4de460c1d80a6b4083f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/player_dead.png"
-dest_files=["res://.godot/imported/player_dead.png-ab6c4cb52094cfc6ca5acada7c242eca.ctex"]
+source_file="res://art/tileset/test_dirt.png"
+dest_files=["res://.godot/imported/test_dirt.png-5e9f4cc86290a4de460c1d80a6b4083f.ctex"]
 
 [params]
 

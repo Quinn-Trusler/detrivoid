@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://6rpsoa6xjgmh"]
 
-[ext_resource type="Script" uid="uid://wnxkgg3fj8nv" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://wnxkgg3fj8nv" path="res://scripts_and_scenes/player/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://clgey8pby8q1r" path="res://art/player.png" id="2_onrkg"]
-[ext_resource type="Script" uid="uid://crlhf8eiasl1k" path="res://item_field.gd" id="3_hqtel"]
-[ext_resource type="PackedScene" uid="uid://cgou6mjpivvag" path="res://held_item.tscn" id="3_i3pqv"]
-[ext_resource type="Script" uid="uid://bytyqew7q8av4" path="res://scavenge_area.gd" id="4_sweqy"]
+[ext_resource type="Script" uid="uid://crlhf8eiasl1k" path="res://scripts_and_scenes/player/item_field.gd" id="3_hqtel"]
+[ext_resource type="PackedScene" uid="uid://cgou6mjpivvag" path="res://scripts_and_scenes/player/held_item.tscn" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://bytyqew7q8av4" path="res://scripts_and_scenes/player/scavenge_area.gd" id="4_sweqy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jcy32"]
 animations = [{
